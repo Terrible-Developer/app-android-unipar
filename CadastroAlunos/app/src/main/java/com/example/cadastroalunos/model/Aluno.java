@@ -96,4 +96,12 @@ public class Aluno extends SugarRecord {
     public int hashCode() {
         return Objects.hash(ra);
     }
+
+    @Override
+    public String toString() {
+        return "Aluno{" +
+                "ra=" + ra +
+                " - nome='" + nome + '\'' +
+                '}';
+    }
 }

@@ -9,12 +9,14 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.text.PrecomputedText;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
@@ -26,7 +28,9 @@ import com.example.cadastroalunos.util.CpfMask;
 import com.example.cadastroalunos.util.Util;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class CadastroAlunoActivity extends AppCompatActivity {
 
@@ -38,6 +42,7 @@ public class CadastroAlunoActivity extends AppCompatActivity {
     private MaterialSpinner spCursos;
     private MaterialSpinner spPeriodo;
     private LinearLayout lnPrincipal;
+
 
     private int vAno;
     private int vMes;
@@ -55,6 +60,8 @@ public class CadastroAlunoActivity extends AppCompatActivity {
         edDtNascAluno = findViewById(R.id.edDtNascAluno);
         edDtMatAluno = findViewById(R.id.edDtMatAluno);
         lnPrincipal = findViewById(R.id.lnPrincipal);
+
+
 
         edDtNascAluno.setFocusable(false);
         edDtMatAluno.setFocusable(false);
