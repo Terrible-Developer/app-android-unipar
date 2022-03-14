@@ -3,14 +3,26 @@
     <string name="ra">Ra</string>
     <string name="nome">Nome</string>
     <string name="cpf">CPF</string>
+    <string name="turma">Turma</string>
     <string name="dtNasc">Dt. Nascimento</string>
     <string name="dtMatricula">Dt. Matricula</string>
     <string name="cursos">Cursos</string>
     <string name="periodo">Período</string>
+
+    <!-- Tela de criação de turmas -->
+    <string name="regime">Regime</string>
+    <string name="selecioneRegime">Selecione o Regime</string>
+    <string name="selecioneProfessor">Selecione o Professor</string>
+    <string name="professor">Professor</string>
+    <string name="selecioneAlunos">Selecione os Alunos</string>
+    <string name="alunos">Alunos</string>
+
     <string name="selecioneCurso">Selecione o Curso</string>
     <string name="selecionePeriodo">Selecione o Período</string>
     <string name="limpar">Limpar</string>
     <string name="salvar">Salvar</string>
     <string name="curso">Curso</string>
     <string name="addAluno">Adicionar Aluno</string>
+    <string name="selecioneTurma">Selecione a Turma</string>
+
 </resources>

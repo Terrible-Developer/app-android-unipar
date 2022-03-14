@@ -1,34 +1,31 @@
-package com.example.cadastroalunos;
+package com.example.cadastroalunos.activities.cadastros;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintSet;
+
 import fr.ganfra.materialspinner.MaterialSpinner;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
-import android.text.PrecomputedText;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
+import com.example.cadastroalunos.R;
 import com.example.cadastroalunos.dao.AlunoDAO;
+import com.example.cadastroalunos.dao.TurmaDAO;
 import com.example.cadastroalunos.model.Aluno;
+import com.example.cadastroalunos.model.Turma;
 import com.example.cadastroalunos.util.CpfMask;
 import com.example.cadastroalunos.util.Util;
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -55,10 +52,11 @@ public class CadastroAlunoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cadastro_aluno);
 
         edRaAluno = findViewById(R.id.edRaAluno);
-        edNomeAluno = findViewById(R.id.edNomeAluno);
-        edCpfAluno = findViewById(R.id.edCpfAluno);
-        edDtNascAluno = findViewById(R.id.edDtNascAluno);
+        edNomeAluno = findViewById(R.id.edNomeProfessor);
+        edCpfAluno = findViewById(R.id.edRegimeTurma);
+        edDtNascAluno = findViewById(R.id.edDtNascProfessor);
         edDtMatAluno = findViewById(R.id.edDtMatAluno);
+        lnPrincipal = findViewById(R.id.lnPrincipal);
         lnPrincipal = findViewById(R.id.lnPrincipal);
 
 
@@ -89,6 +87,7 @@ public class CadastroAlunoActivity extends AppCompatActivity {
 
         String periodos[] = new String[]{"1a Série",
                 "2a Série", "3a Série", "4a Série"};
+
 
         ArrayAdapter adapterCursos = new ArrayAdapter(this,
                 android.R.layout.simple_list_item_1,  cursos);
@@ -170,7 +169,6 @@ public class CadastroAlunoActivity extends AppCompatActivity {
         aluno.setCpf(edCpfAluno.getText().toString());
         aluno.setDtNasc(edDtNascAluno.getText().toString());
         aluno.setDtMatricula(edDtMatAluno.getText().toString());
-        aluno.setCurso(spCursos.getSelectedItem().toString());
         aluno.setPeriodo(spPeriodo.getSelectedItem().toString());
 
         if(AlunoDAO.salvar(aluno) > 0) {

@@ -11,14 +11,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CadastroAlunos">
         <activity
-            android:name=".ListaAlunoActivity"
+            android:name=".activities.lista.ListaAlunoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.lista.ListaProfessorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.lista.ListaTurmaActivity"
             android:exported="false" />
 
         <activity
-            android:name=".CadastroAlunoActivity"
+            android:name=".activities.cadastros.CadastroAlunoActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.cadastros.CadastroProfessorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.cadastros.CadastroTurmaActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

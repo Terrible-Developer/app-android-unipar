@@ -13,12 +13,13 @@ public class Aluno extends SugarRecord {
     private String dtMatricula;
     private String curso;
     private String periodo;
+    private Turma turma;
 
     public Aluno() {
     }
 
     public Aluno(int ra, String nome, String cpf, String dtNasc,
-                 String dtMatricula, String curso, String periodo) {
+                 String dtMatricula, String curso, String periodo, Turma turma) {
         this.ra = ra;
         this.nome = nome;
         this.cpf = cpf;
@@ -26,6 +27,7 @@ public class Aluno extends SugarRecord {
         this.dtMatricula = dtMatricula;
         this.curso = curso;
         this.periodo = periodo;
+        this.turma = turma;
     }
 
     public int getRa() {
@@ -84,24 +86,39 @@ public class Aluno extends SugarRecord {
         this.periodo = periodo;
     }
 
+    public Turma getTurma() {
+        return turma;
+    }
+
+    public void setTurma(Turma turma) {
+        this.turma = turma;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Aluno aluno = (Aluno) o;
-        return ra == aluno.ra;
+        return ra == aluno.ra && Objects.equals(nome, aluno.nome) && Objects.equals(cpf, aluno.cpf) && Objects.equals(dtNasc, aluno.dtNasc) && Objects.equals(dtMatricula, aluno.dtMatricula) && Objects.equals(curso, aluno.curso) && Objects.equals(periodo, aluno.periodo) && Objects.equals(turma, aluno.turma);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ra);
+        return Objects.hash(ra, nome, cpf, dtNasc, dtMatricula, curso, periodo, turma);
     }
 
     @Override
     public String toString() {
         return "Aluno{" +
                 "ra=" + ra +
-                " - nome='" + nome + '\'' +
+                ", nome='" + nome + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", dtNasc='" + dtNasc + '\'' +
+                ", dtMatricula='" + dtMatricula + '\'' +
+                ", curso='" + curso + '\'' +
+                ", periodo='" + periodo + '\'' +
+                ", turma=" + turma +
                 '}';
     }
 }

@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.lista.ListaAlunoActivity"
+    tools:context=".activities.lista.ListaTurmaActivity"
     android:orientation="vertical"
     android:id="@+id/lnLista">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvListaTurmas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        android:id="@+id/rvListaAlunos"/>
+        android:layout_margin="10dp" />
 
 </LinearLayout>

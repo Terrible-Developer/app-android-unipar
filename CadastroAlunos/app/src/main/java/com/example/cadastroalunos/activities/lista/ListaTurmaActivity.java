@@ -1,4 +1,4 @@
-package com.example.cadastroalunos;
+package com.example.cadastroalunos.activities.lista;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,39 +14,43 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 
-import com.example.cadastroalunos.adapters.AlunoAdapter;
-import com.example.cadastroalunos.dao.AlunoDAO;
-import com.example.cadastroalunos.model.Aluno;
+import com.example.cadastroalunos.R;
+import com.example.cadastroalunos.activities.cadastros.CadastroTurmaActivity;
+import com.example.cadastroalunos.adapters.TurmaAdapter;
+import com.example.cadastroalunos.dao.TurmaDAO;
+import com.example.cadastroalunos.model.Turma;
 import com.example.cadastroalunos.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListaAlunoActivity extends AppCompatActivity {
+public class ListaTurmaActivity extends AppCompatActivity {
 
-    private RecyclerView rvListaAlunos;
+    private RecyclerView rvListaTurmas;
     private LinearLayout lnLista;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lista_aluno);
+        setContentView(R.layout.activity_lista_turma);
 
         lnLista = findViewById(R.id.lnLista);
 
-        atualizaListaAluno();
+        atualizaListaTurma();
+
+        this.setTitle("Cadastro de Turmas");
     }
 
-    public void atualizaListaAluno(){
-        List<Aluno> listaAluno = new ArrayList<>();
-        listaAluno = AlunoDAO.retornaAlunos("", new String[]{}, "nome asc");
-        Log.e("PHS", "Tamanho da lista: "+listaAluno.size());
+    public void atualizaListaTurma(){
+        List<Turma> listaTurma;
+        listaTurma = TurmaDAO.retornaTurmas("", new String[]{}, "apelido asc");
+        Log.e("PHS", "Tamanho da lista: "+listaTurma.size());
 
-        rvListaAlunos = findViewById(R.id.rvListaAlunos);
-        AlunoAdapter adapter = new AlunoAdapter(listaAluno, this);
+        rvListaTurmas = findViewById(R.id.rvListaTurmas);
+        TurmaAdapter adapter = new TurmaAdapter(listaTurma, this);
         LinearLayoutManager llm = new LinearLayoutManager(this);
-        rvListaAlunos.setLayoutManager(llm);
-        rvListaAlunos.setAdapter(adapter);
+        rvListaTurmas.setLayoutManager(llm);
+        rvListaTurmas.setAdapter(adapter);
     }
 
     @Override
@@ -60,15 +64,15 @@ public class ListaAlunoActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.mn_add:
-                abrirCadastroAluno();
+                abrirCadastroTurma();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    private void abrirCadastroAluno() {
-        Intent intent = new Intent(this, CadastroAlunoActivity.class);
+    private void abrirCadastroTurma() {
+        Intent intent = new Intent(this, CadastroTurmaActivity.class);
         startActivityForResult(intent, 1);
     }
 
@@ -77,8 +81,8 @@ public class ListaAlunoActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(resultCode == RESULT_OK){
-            Util.customSnackBar(lnLista, "Aluno salvo com sucesso!", 1);
+            Util.customSnackBar(lnLista, "Turma salvo com sucesso!", 1);
         }
-        atualizaListaAluno();
+        atualizaListaTurma();
     }
 }

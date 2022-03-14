@@ -25,21 +25,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:hint="@string/ra">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edRaAluno"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
-            android:inputType="number"
-            android:textColor="@android:color/black"
-            android:textColorHint="@android:color/black" />
-    </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:hint="@string/nome">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -84,21 +69,6 @@
                 android:onClick="selecionarData"
                 android:textColor="@android:color/black" />
         </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:hint="@string/dtMatricula">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edDtMatAluno"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-                android:onClick="selecionarData"
-                android:textColor="@android:color/black" />
-        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 
@@ -113,14 +83,15 @@
         android:layout_margin="10dp"/>
 
     <fr.ganfra.materialspinner.MaterialSpinner
+        android:id="@+id/spPeriodo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/spPeriodo"
+        android:layout_margin="10dp"
+        android:visibility="gone"
         app:ms_arrowColor="?attr/colorPrimary"
         app:ms_floatingLabelText="@string/periodo"
         app:ms_hint="@string/selecionePeriodo"
-        app:ms_multiline="false"
-        android:layout_margin="10dp"/>
+        app:ms_multiline="false" />
 
 
 </LinearLayout>
