@@ -38,7 +38,7 @@ public class ListaTurmaActivity extends AppCompatActivity {
 
         atualizaListaTurma();
 
-        this.setTitle("Cadastro de Turmas");
+        this.setTitle("Turmas");
     }
 
     public void atualizaListaTurma(){

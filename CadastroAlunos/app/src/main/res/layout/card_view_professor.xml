@@ -18,21 +18,35 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
               <!-- RA e CPF-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:hint="@string/nome">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edNomeProfessor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:focusable="false"
+                    android:textColor="@android:color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="5dp">
+                android:orientation="horizontal">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
-                    android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="2"
                     android:hint="@string/cpf">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edRegimeTurma"
+                        android:id="@+id/edCpfProfessor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/white"
@@ -46,12 +60,11 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:hint="@string/nome">
+                android:layout_margin="5dp"
+                android:hint="@string/regime">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edNomeProfessor"
+                    android:id="@+id/edRegimeProfessor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/white"
@@ -73,9 +86,9 @@
                     android:hint="@string/curso">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edCursoAluno"
+                        android:id="@+id/edCursoProfessor"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:backgroundTint="@color/white"
                         android:focusable="false"
                         android:textColor="@android:color/black" />
@@ -84,15 +97,15 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:hint="@string/periodo"
-                    android:visibility="invisible">
+                    android:visibility="visible">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edPeriodoAluno"
+                        android:id="@+id/edPeriodoProfessor"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
                         android:backgroundTint="@color/white"
                         android:focusable="false"
                         android:textColor="@android:color/black" />
@@ -109,9 +122,8 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
                     android:hint="@string/dtNasc">
 
                     <com.google.android.material.textfield.TextInputEditText

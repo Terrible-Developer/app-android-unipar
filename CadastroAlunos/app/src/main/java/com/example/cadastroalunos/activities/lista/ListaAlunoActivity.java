@@ -38,7 +38,7 @@ public class ListaAlunoActivity extends AppCompatActivity {
 
         atualizaListaAluno();
 
-        this.setTitle("Cadastro de Alunos");
+        this.setTitle("Alunos");
     }
 
     public void atualizaListaAluno(){

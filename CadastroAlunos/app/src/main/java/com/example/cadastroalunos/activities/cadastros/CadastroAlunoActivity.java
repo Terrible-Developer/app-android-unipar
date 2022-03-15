@@ -19,15 +19,12 @@ import android.widget.LinearLayout;
 
 import com.example.cadastroalunos.R;
 import com.example.cadastroalunos.dao.AlunoDAO;
-import com.example.cadastroalunos.dao.TurmaDAO;
 import com.example.cadastroalunos.model.Aluno;
-import com.example.cadastroalunos.model.Turma;
 import com.example.cadastroalunos.util.CpfMask;
 import com.example.cadastroalunos.util.Util;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Calendar;
-import java.util.List;
 
 public class CadastroAlunoActivity extends AppCompatActivity {
 
@@ -36,8 +33,9 @@ public class CadastroAlunoActivity extends AppCompatActivity {
     private TextInputEditText edCpfAluno;
     private TextInputEditText edDtNascAluno;
     private TextInputEditText edDtMatAluno;
-    private MaterialSpinner spCursos;
-    private MaterialSpinner spPeriodo;
+    private MaterialSpinner spRegimeAluno;
+    private MaterialSpinner spCursoAluno;
+    private MaterialSpinner spPeriodoAluno;
     private LinearLayout lnPrincipal;
 
 
@@ -52,13 +50,12 @@ public class CadastroAlunoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cadastro_aluno);
 
         edRaAluno = findViewById(R.id.edRaAluno);
-        edNomeAluno = findViewById(R.id.edNomeProfessor);
-        edCpfAluno = findViewById(R.id.edRegimeTurma);
-        edDtNascAluno = findViewById(R.id.edDtNascProfessor);
+        edNomeAluno = findViewById(R.id.edNomeAluno);
+        edCpfAluno = findViewById(R.id.edCpfAluno);
+        edDtNascAluno = findViewById(R.id.edDtNascAluno);
         edDtMatAluno = findViewById(R.id.edDtMatAluno);
+        spRegimeAluno = findViewById(R.id.spRegimeAluno);
         lnPrincipal = findViewById(R.id.lnPrincipal);
-        lnPrincipal = findViewById(R.id.lnPrincipal);
-
 
 
         edDtNascAluno.setFocusable(false);
@@ -78,8 +75,8 @@ public class CadastroAlunoActivity extends AppCompatActivity {
     }
 
     private void iniciaSpinners(){
-        spCursos = findViewById(R.id.spCursos);
-        spPeriodo = findViewById(R.id.spPeriodo);
+        spCursoAluno = findViewById(R.id.spCursoAluno);
+        spPeriodoAluno = findViewById(R.id.spPeriodoAluno);
 
         String cursos[] = new String[]{"Análise e Desenv. Sistemas",
                 "Administração", "Ciências Contábeis", "Direito",
@@ -94,11 +91,19 @@ public class CadastroAlunoActivity extends AppCompatActivity {
         ArrayAdapter adapterPeriodo = new ArrayAdapter(this,
                 android.R.layout.simple_list_item_1,  periodos);
 
-        spCursos.setAdapter(adapterCursos);
-        spPeriodo.setAdapter(adapterPeriodo);
+        spCursoAluno.setAdapter(adapterCursos);
+        spPeriodoAluno.setAdapter(adapterPeriodo);
+
+        // Criar spinner de regimes
+        String regimes[] = new String[] {"Matinal", "Diurno", "Noturno"};
+
+        ArrayAdapter adapterRegimes = new ArrayAdapter(this,
+                android.R.layout.simple_list_item_1, regimes);
+
+        spRegimeAluno.setAdapter(adapterRegimes);
 
         //Ação ao selecionar o item da lista
-        spCursos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spCursoAluno.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if(i == 0){
@@ -159,6 +164,20 @@ public class CadastroAlunoActivity extends AppCompatActivity {
             return;
         }
 
+        // Valida o campo de período do Aluno
+        if(spPeriodoAluno.getSelectedItem() == null){
+            spPeriodoAluno.setError("Informe o periodo do Aluno!");
+            spPeriodoAluno.requestFocus();
+            return;
+        }
+
+        // Valida o campo de regime do Aluno
+        if(spRegimeAluno.getSelectedItem() == null){
+            spRegimeAluno.setError("Informe o regime do Aluno!");
+            spRegimeAluno.requestFocus();
+            return;
+        }
+
         salvarAluno();
     }
 
@@ -169,10 +188,11 @@ public class CadastroAlunoActivity extends AppCompatActivity {
         aluno.setCpf(edCpfAluno.getText().toString());
         aluno.setDtNasc(edDtNascAluno.getText().toString());
         aluno.setDtMatricula(edDtMatAluno.getText().toString());
-        aluno.setPeriodo(spPeriodo.getSelectedItem().toString());
+        aluno.setPeriodo(spPeriodoAluno.getSelectedItem().toString());
+        aluno.setCurso(spCursoAluno.getSelectedItem().toString());
+        aluno.setRegime(spRegimeAluno.getSelectedItem().toString());
 
         if(AlunoDAO.salvar(aluno) > 0) {
-
             setResult(RESULT_OK);
             finish();
         }else

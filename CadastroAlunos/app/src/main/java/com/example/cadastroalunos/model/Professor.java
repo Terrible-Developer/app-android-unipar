@@ -9,18 +9,48 @@ public class Professor extends SugarRecord {
     private String nome;
     private String cpf;
     private String dtNasc;
+    private String periodo;
     private String curso;
+    private String regime;
     private Turma turma;
 
     public Professor() {
     }
 
-    public Professor(String nome, String cpf, String dtNasc, String curso, Turma turma) {
+    public Professor(String nome, String cpf, String dtNasc, String periodo, String curso, String regime, Turma turma) {
         this.nome = nome;
         this.cpf = cpf;
         this.dtNasc = dtNasc;
+        this.periodo = periodo;
         this.curso = curso;
+        this.regime = regime;
         this.turma = turma;
+    }
+
+    @Override
+    public String toString() {
+        return "Professor{" +
+                "nome='" + nome + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", dtNasc='" + dtNasc + '\'' +
+                ", periodo='" + periodo + '\'' +
+                ", curso='" + curso + '\'' +
+                ", regime=" + regime +
+                ", turma=" + turma +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Professor professor = (Professor) o;
+        return Objects.equals(nome, professor.nome) && Objects.equals(cpf, professor.cpf) && Objects.equals(dtNasc, professor.dtNasc) && Objects.equals(periodo, professor.periodo) && Objects.equals(curso, professor.curso) && Objects.equals(regime, professor.regime) && Objects.equals(turma, professor.turma);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nome, cpf, dtNasc, periodo, curso, regime, turma);
     }
 
     public static long getIdProfessor() {
@@ -55,6 +85,14 @@ public class Professor extends SugarRecord {
         this.dtNasc = dtNasc;
     }
 
+    public String getPeriodo() {
+        return periodo;
+    }
+
+    public void setPeriodo(String periodo) {
+        this.periodo = periodo;
+    }
+
     public String getCurso() {
         return curso;
     }
@@ -63,36 +101,19 @@ public class Professor extends SugarRecord {
         this.curso = curso;
     }
 
+    public String getRegime() {
+        return regime;
+    }
+
+    public void setRegime(String regime) {
+        this.regime = regime;
+    }
+
     public Turma getTurma() {
         return turma;
     }
 
     public void setTurma(Turma turma) {
         this.turma = turma;
-    }
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Professor professor = (Professor) o;
-        return Objects.equals(nome, professor.nome) && Objects.equals(cpf, professor.cpf) && Objects.equals(dtNasc, professor.dtNasc) && Objects.equals(curso, professor.curso) && Objects.equals(turma, professor.turma);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(nome, cpf, dtNasc, curso, turma);
-    }
-
-    @Override
-    public String toString() {
-        return "Professor{" +
-                "nome='" + nome + '\'' +
-                ", cpf='" + cpf + '\'' +
-                ", dtNasc='" + dtNasc + '\'' +
-                ", curso='" + curso + '\'' +
-                ", turma=" + turma +
-                '}';
     }
 }

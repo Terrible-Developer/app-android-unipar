@@ -1,6 +1,5 @@
 package com.example.cadastroalunos.model;
 
-import com.example.cadastroalunos.enums.Regime;
 import com.orm.SugarRecord;
 
 import java.util.List;
@@ -9,20 +8,47 @@ import java.util.Objects;
 public class Turma extends SugarRecord {
     private int idTurma;
     private String apelido;
-    private Regime regime;
+    private String regime;
+    private String periodo;
     private List<Aluno> alunos;
     private Professor professor;
 
     public Turma() {}
 
-    public Turma(Regime regime, List<Aluno> alunos, Professor professor) {
-        this.apelido = "Turma #"+idTurma;
+    public Turma(String apelido, String regime, String periodo, List<Aluno> alunos, Professor professor) {
+        this.apelido = apelido;
         this.regime = regime;
+        this.periodo = periodo;
         this.alunos = alunos;
         this.professor = professor;
     }
 
-    public long getIdTurma() {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Turma turma = (Turma) o;
+        return idTurma == turma.idTurma && Objects.equals(apelido, turma.apelido) && Objects.equals(regime, turma.regime) && Objects.equals(periodo, turma.periodo) && Objects.equals(alunos, turma.alunos) && Objects.equals(professor, turma.professor);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idTurma, apelido, regime, periodo, alunos, professor);
+    }
+
+    @Override
+    public String toString() {
+        return "Turma{" +
+                "idTurma=" + idTurma +
+                ", apelido='" + apelido + '\'' +
+                ", regime='" + regime + '\'' +
+                ", periodo='" + periodo + '\'' +
+                ", alunos=" + alunos +
+                ", professor=" + professor +
+                '}';
+    }
+
+    public int getIdTurma() {
         return idTurma;
     }
 
@@ -38,12 +64,20 @@ public class Turma extends SugarRecord {
         this.apelido = apelido;
     }
 
-    public Regime getRegime() {
+    public String getRegime() {
         return regime;
     }
 
-    public void setRegime(Regime regime) {
+    public void setRegime(String regime) {
         this.regime = regime;
+    }
+
+    public String getPeriodo() {
+        return periodo;
+    }
+
+    public void setPeriodo(String periodo) {
+        this.periodo = periodo;
     }
 
     public List<Aluno> getAlunos() {
@@ -60,29 +94,5 @@ public class Turma extends SugarRecord {
 
     public void setProfessor(Professor professor) {
         this.professor = professor;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Turma turma = (Turma) o;
-        return Objects.equals(apelido, turma.apelido) && regime == turma.regime && Objects.equals(alunos, turma.alunos) && Objects.equals(professor, turma.professor);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(apelido, regime, alunos, professor);
-    }
-
-    @Override
-    public String toString() {
-        return "Turma{" +
-                "idTurma=" + idTurma +
-                ", apelido='" + apelido + '\'' +
-                ", regime=" + regime +
-                ", alunos=" + alunos +
-                ", professor=" + professor +
-                '}';
     }
 }

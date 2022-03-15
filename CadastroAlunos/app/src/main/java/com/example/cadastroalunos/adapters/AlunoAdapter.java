@@ -29,20 +29,22 @@ public class AlunoAdapter extends RecyclerView.Adapter<AlunoAdapter.AlunoViewHol
         TextInputEditText edNomeAluno;
         TextInputEditText edCpfAluno;
         TextInputEditText edCursoAluno;
-        TextInputEditText edPeriodo;
-        TextInputEditText edDtMatricula;
-        TextInputEditText edDtNasc;
+        TextInputEditText edRegimeAluno;
+        TextInputEditText edPeriodoAluno;
+        TextInputEditText edDtMatriculaAluno;
+        TextInputEditText edDtNascAluno;
 
         public AlunoViewHolder(@NonNull View itemView) {
             super(itemView);
 
             edRaAluno = (TextInputEditText)itemView.findViewById(R.id.edRaAluno);
-            edNomeAluno = (TextInputEditText)itemView.findViewById(R.id.edNomeProfessor);
-            edCpfAluno =  (TextInputEditText)itemView.findViewById(R.id.edRegimeTurma);
+            edNomeAluno = (TextInputEditText)itemView.findViewById(R.id.edNomeAluno);
+            edCpfAluno =  (TextInputEditText)itemView.findViewById(R.id.edCpfAluno);
             edCursoAluno = (TextInputEditText)itemView.findViewById(R.id.edCursoAluno);
-            edPeriodo = (TextInputEditText)itemView.findViewById(R.id.edPeriodoAluno);
-            edDtMatricula = (TextInputEditText)itemView.findViewById(R.id.edDtMatricula);
-            edDtNasc = (TextInputEditText)itemView.findViewById(R.id.edDtNascProfessor);
+            edRegimeAluno = (TextInputEditText)itemView.findViewById(R.id.edRegimeAluno);
+            edPeriodoAluno = (TextInputEditText)itemView.findViewById(R.id.edPeriodoAluno);
+            edDtMatriculaAluno = (TextInputEditText)itemView.findViewById(R.id.edDtMatriculaAluno);
+            edDtNascAluno = (TextInputEditText)itemView.findViewById(R.id.edDtNascAluno);
 
         }
     }
@@ -65,10 +67,11 @@ public class AlunoAdapter extends RecyclerView.Adapter<AlunoAdapter.AlunoViewHol
         holder.edRaAluno.setText(String.valueOf(aluno.getRa()));
         holder.edCpfAluno.setText(aluno.getCpf());
         holder.edNomeAluno.setText(aluno.getNome());
+        holder.edRegimeAluno.setText(aluno.getRegime());
         holder.edCursoAluno.setText(aluno.getCurso());
-        holder.edPeriodo.setText(aluno.getPeriodo());
-        holder.edDtMatricula.setText(aluno.getDtMatricula());
-        holder.edDtNasc.setText(aluno.getDtNasc());
+        holder.edPeriodoAluno.setText(aluno.getPeriodo());
+        holder.edDtMatriculaAluno.setText(aluno.getDtMatricula());
+        holder.edDtNascAluno.setText(aluno.getDtNasc());
 
     }
 

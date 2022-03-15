@@ -2,10 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lnPrincipal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:id="@+id/lnPrincipal"
+    android:visibility="visible"
     tools:context=".activities.cadastros.CadastroAlunoActivity">
 
     <!--Criação layout do appbar e toolBar-->
@@ -22,68 +23,100 @@
     </com.google.android.material.appbar.AppBarLayout>
 -->
 
-    <fr.ganfra.materialspinner.MaterialSpinner
-        android:id="@+id/spRegime"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        app:ms_arrowColor="?attr/colorPrimary"
-        app:ms_floatingLabelText="@string/regime"
-        app:ms_hint="@string/selecioneRegime"
-        app:ms_multiline="false" />
 
-
-    <AutoCompleteTextView
-        android:id="@+id/atProfessor"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        app:ms_arrowColor="?attr/colorPrimary"
-        app:ms_floatingLabelText="@string/alunos"
-        app:ms_hint="@string/selecioneAlunos"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <fr.ganfra.materialspinner.MaterialSpinner
+                    android:id="@+id/spPeriodo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    app:ms_arrowColor="?attr/colorPrimary"
+                    app:ms_floatingLabelText="@string/periodo"
+                    app:ms_hint="@string/selecionePeriodo"
+                    app:ms_multiline="false" />
+
+                <fr.ganfra.materialspinner.MaterialSpinner
+                    android:id="@+id/spRegime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    app:ms_arrowColor="?attr/colorPrimary"
+                    app:ms_floatingLabelText="@string/regime"
+                    app:ms_hint="@string/selecioneRegime"
+                    app:ms_multiline="false" />
+            </LinearLayout>
 
             <AutoCompleteTextView
-                android:id="@+id/atAlunos"
-                android:layout_width="250dp"
+                android:id="@+id/atProfessor"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:visibility="gone"
                 app:ms_arrowColor="?attr/colorPrimary"
                 app:ms_floatingLabelText="@string/alunos"
                 app:ms_hint="@string/selecioneAlunos" />
-
-            <Button
-                android:id="@+id/adicionarAluno"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:text="+"
-                android:visibility="visible" />
-        </LinearLayout>
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp">
 
             <LinearLayout
                 android:id="@+id/lnAlunos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" />
-        </ScrollView>
-    </LinearLayout>
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/atAlunos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="5"
+                        app:ms_arrowColor="?attr/colorPrimary"
+                        app:ms_floatingLabelText="@string/alunos"
+                        app:ms_hint="@string/selecioneAlunos" />
+
+                    <Button
+                        android:id="@+id/adicionarAluno"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="0"
+                        android:text="+"
+                        android:visibility="visible" />
+                </LinearLayout>
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+                </ScrollView>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 
 </LinearLayout>

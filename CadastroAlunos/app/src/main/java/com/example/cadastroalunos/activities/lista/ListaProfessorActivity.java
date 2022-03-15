@@ -38,12 +38,11 @@ public class ListaProfessorActivity extends AppCompatActivity {
 
         atualizaListaProfessor();
 
-        this.setTitle("Cadastro de Professores");
+        this.setTitle("Professores");
     }
 
     public void atualizaListaProfessor(){
-        List<Professor> listaProfessor = new ArrayList<>();
-        listaProfessor = ProfessorDAO.retornaProfessores("", new String[]{}, "nome asc");
+        List<Professor> listaProfessor = ProfessorDAO.retornaProfessores("", new String[]{}, "nome asc");
         Log.e("PHS", "Tamanho da lista: "+listaProfessor.size());
 
         rvListaProfessores = findViewById(R.id.rvListaProfessores);

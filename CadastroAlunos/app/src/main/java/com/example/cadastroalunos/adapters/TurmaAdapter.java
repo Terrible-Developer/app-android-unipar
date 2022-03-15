@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.cadastroalunos.R;
-import com.example.cadastroalunos.model.Aluno;
 import com.example.cadastroalunos.model.Turma;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -32,7 +31,7 @@ public class TurmaAdapter extends RecyclerView.Adapter<TurmaAdapter.TurmaViewHol
         public TurmaViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            edRegimeTurma = itemView.findViewById(R.id.edRegimeTurma);
+            edRegimeTurma = itemView.findViewById(R.id.edCpfProfessor);
 
         }
     }

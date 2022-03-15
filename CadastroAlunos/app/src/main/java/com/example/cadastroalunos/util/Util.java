@@ -7,6 +7,8 @@ import android.widget.TextView;
 import com.example.cadastroalunos.R;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.Arrays;
+
 public class Util {
 
     /***
@@ -29,4 +31,15 @@ public class Util {
         snackbar.show();
     }
 
+    /**
+     * Separa string e pega informações importantes
+     * @param string Texto a ser splitado
+     * @param index Qual posição desejamos retornar
+     * @param separator Separador
+     */
+    public static String splitString(String string, int index, String separator) {
+        String[] partes = string.split(separator);
+        System.out.println(Arrays.toString(partes));
+        return partes[index];
+    }
 }
