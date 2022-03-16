@@ -91,7 +91,7 @@
         <fr.ganfra.materialspinner.MaterialSpinner
             android:id="@+id/spCursoProfessor"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:layout_weight="1"
             app:ms_arrowColor="?attr/colorPrimary"
@@ -102,7 +102,7 @@
         <fr.ganfra.materialspinner.MaterialSpinner
             android:id="@+id/spPeriodoProfessor"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:visibility="visible"

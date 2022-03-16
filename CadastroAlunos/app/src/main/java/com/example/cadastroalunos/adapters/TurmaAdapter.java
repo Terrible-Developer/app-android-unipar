@@ -26,12 +26,20 @@ public class TurmaAdapter extends RecyclerView.Adapter<TurmaAdapter.TurmaViewHol
     }
 
     public static class TurmaViewHolder extends RecyclerView.ViewHolder {
-        TextInputEditText edRegimeTurma;
+        TextInputEditText edTurmaID;
+        TextInputEditText edTurmaProfessor;
+        TextInputEditText edTurmaCurso;
+        TextInputEditText edTurmaRegime;
+        TextInputEditText edTurmaPeriodo;
 
         public TurmaViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            edRegimeTurma = itemView.findViewById(R.id.edCpfProfessor);
+            edTurmaID = itemView.findViewById(R.id.edTurmaID);
+            edTurmaCurso = itemView.findViewById(R.id.edTurmaCurso);
+            edTurmaProfessor = itemView.findViewById(R.id.edTurmaProfessor);
+            edTurmaRegime = itemView.findViewById(R.id.edTurmaRegime);
+            edTurmaPeriodo = itemView.findViewById(R.id.edTurmaPeriodo);
 
         }
     }
@@ -51,7 +59,11 @@ public class TurmaAdapter extends RecyclerView.Adapter<TurmaAdapter.TurmaViewHol
     public void onBindViewHolder(@NonNull TurmaViewHolder holder, int position) {
         Turma turma = listaTurmas.get(position);
 
-        holder.edRegimeTurma.setText(String.valueOf(turma.getRegime()));
+        holder.edTurmaID.setText(String.valueOf(turma.getId()));
+        holder.edTurmaProfessor.setText(String.valueOf(turma.getProfessor().getNome()));
+        holder.edTurmaRegime.setText(String.valueOf(turma.getRegime()));
+        holder.edTurmaCurso.setText(String.valueOf(turma.getCurso()));
+        holder.edTurmaPeriodo.setText(String.valueOf(turma.getPeriodo()));
 
     }
 

@@ -19,6 +19,9 @@
         <activity
             android:name=".activities.lista.ListaTurmaActivity"
             android:exported="false" />
+        <activity
+            android:name=".activities.lista.ListaDisciplinaActivity"
+            android:exported="false" />
 
         <activity
             android:name=".activities.cadastros.CadastroAlunoActivity"
@@ -28,6 +31,9 @@
             android:exported="false" />
         <activity
             android:name=".activities.cadastros.CadastroTurmaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.cadastros.CadastroDisciplinaActivity"
             android:exported="false" />
 
         <activity

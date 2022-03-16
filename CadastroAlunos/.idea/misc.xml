@@ -6,13 +6,16 @@
         <entry key="..\:/Android/Sdk/platforms/android-31/data/res/layout/simple_list_item_1.xml" value="0.234375" />
         <entry key="..\:/Github/trab-pos-android/CadastroAlunos/app/src/main/res/drawable-anydpi/ic_add.xml" value="0.1735" />
         <entry key="..\:/Github/trab-pos-android/CadastroAlunos/app/src/main/res/layout/activity_cadastro_aluno.xml" value="0.25" />
+        <entry key="..\:/Github/trab-pos-android/CadastroAlunos/app/src/main/res/layout/activity_cadastro_disciplina.xml" value="0.27239583333333334" />
         <entry key="..\:/Github/trab-pos-android/CadastroAlunos/app/src/main/res/layout/activity_cadastro_professor.xml" value="0.33" />
         <entry key="..\:/Github/trab-pos-android/CadastroAlunos/app/src/main/res/layout/activity_cadastro_turma.xml" value="0.33" />
         <entry key="..\:/Github/trab-pos-android/CadastroAlunos/app/src/main/res/layout/activity_lista_aluno.xml" value="0.17831813576494426" />
+        <entry key="..\:/Github/trab-pos-android/CadastroAlunos/app/src/main/res/layout/activity_lista_disciplina.xml" value="0.27239583333333334" />
         <entry key="..\:/Github/trab-pos-android/CadastroAlunos/app/src/main/res/layout/activity_lista_professor.xml" value="0.17831813576494426" />
         <entry key="..\:/Github/trab-pos-android/CadastroAlunos/app/src/main/res/layout/activity_lista_turma.xml" value="0.2421875" />
         <entry key="..\:/Github/trab-pos-android/CadastroAlunos/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Github/trab-pos-android/CadastroAlunos/app/src/main/res/layout/card_view_aluno.xml" value="0.33" />
+        <entry key="..\:/Github/trab-pos-android/CadastroAlunos/app/src/main/res/layout/card_view_disciplina.xml" value="0.27239583333333334" />
         <entry key="..\:/Github/trab-pos-android/CadastroAlunos/app/src/main/res/layout/card_view_professor.xml" value="0.33" />
         <entry key="..\:/Github/trab-pos-android/CadastroAlunos/app/src/main/res/layout/card_view_turma.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_cadastro_aluno.xml" value="0.25" />

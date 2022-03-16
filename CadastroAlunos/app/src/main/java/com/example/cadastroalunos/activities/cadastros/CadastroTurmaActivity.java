@@ -38,6 +38,8 @@ public class CadastroTurmaActivity extends AppCompatActivity {
 
     private MaterialSpinner spPeriodo;
 
+    private MaterialSpinner spCursos;
+
     private AutoCompleteTextView atProfessor;
     private AutoCompleteTextView atAlunos;
 
@@ -49,7 +51,6 @@ public class CadastroTurmaActivity extends AppCompatActivity {
     private List<Aluno> listaAlunosParaAdd;
 
     private Aluno alunoASerAdicionado;
-
 
     public Aluno getAlunoASerAdicionado() {
         return alunoASerAdicionado;
@@ -72,8 +73,11 @@ public class CadastroTurmaActivity extends AppCompatActivity {
         lnAlunos.setBackgroundColor(Color.TRANSPARENT);
         spPeriodo = findViewById(R.id.spPeriodo);
         spRegime = findViewById(R.id.spRegime);
+        spCursos = findViewById(R.id.spCursoTurma);
         adicionarAluno = findViewById(R.id.adicionarAluno);
         listaAlunosParaAdd = new ArrayList<>();
+
+        lnAlunos.setBackgroundColor(Color.TRANSPARENT);
 
         // Inicia os spinners
         iniciaBehaviors();
@@ -84,8 +88,18 @@ public class CadastroTurmaActivity extends AppCompatActivity {
 
     private void iniciaBehaviors() {
 
+        // Criar spinner de cursos
+        String cursos[] = new String[]{"Análise e Desenv. Sistemas",
+                "Administração", "Ciências Contábeis", "Direito",
+                "Farmácia", "Nutrição"};
+
+        ArrayAdapter adapterCursos = new ArrayAdapter(this,
+                android.R.layout.simple_list_item_1,  cursos);
+
+        spCursos.setAdapter(adapterCursos);
+
         // Criar spinner de regimes
-        String regimes[] = new String[]{"Matinal", "Diurno", "Noturno"};
+        String[] regimes = new String[]{"Matinal", "Diurno", "Noturno"};
 
         ArrayAdapter adapterRegimes = new ArrayAdapter(this,
                 android.R.layout.simple_list_item_1, regimes);
@@ -93,7 +107,7 @@ public class CadastroTurmaActivity extends AppCompatActivity {
         spRegime.setAdapter(adapterRegimes);
 
         // Criar spinner de período
-        String periodos[] = new String[]{"1a Série",
+        String[] periodos = new String[]{"1a Série",
                 "2a Série", "3a Série", "4a Série"};
 
         ArrayAdapter adapterPeriodo = new ArrayAdapter(this,
@@ -126,13 +140,14 @@ public class CadastroTurmaActivity extends AppCompatActivity {
      * alunos pelas letras digitadas
      **/
     private void criarACProfessores() {
-        if (spPeriodo.getSelectedItem() != null && spRegime.getSelectedItem() != null) {
+        if (spCursos.getSelectedItem() != null && spPeriodo.getSelectedItem() != null && spRegime.getSelectedItem() != null) {
             atProfessor.setVisibility(View.VISIBLE);
 
+            String curso = spCursos.getSelectedItem().toString();
             String periodo = spPeriodo.getSelectedItem().toString();
             String regime = spRegime.getSelectedItem().toString();
 
-            List<Professor> listaProfessores = new ArrayList<>(ProfessorDAO.retornaProfessores("periodo = ? and regime = ?", new String[]{periodo, regime}, ""));
+            List<Professor> listaProfessores = new ArrayList<>(ProfessorDAO.retornaProfessores("curso = ? and periodo = ? and regime = ?", new String[]{curso, periodo, regime}, "nome"));
 
             // Depois de retornado os alunos, é necessário criar um vetor para atribuir ao adapter
             String[] nomes = new String[listaProfessores.size()];
@@ -211,22 +226,27 @@ public class CadastroTurmaActivity extends AppCompatActivity {
      */
     private void adicionaAluno() {
         Aluno aluno = getAlunoASerAdicionado();
-        // Se aluno não existir na lista, pode adicioná-lo
-        if (listaAlunosParaAdd.contains(aluno)) {
+        if (atAlunos.getText().toString().equals("") || aluno == null) {
+            atAlunos.setError("Selecione um aluno antes");
             return;
         }
 
-        lnAlunos.setBackgroundColor(Color.TRANSPARENT);
+        // Se aluno não existir na lista, pode adicioná-lo
+        if (listaAlunosParaAdd.contains(aluno)) {
+            atAlunos.setError("Esse aluno já foi atribuído a essa turma");
+            return;
+        }
 
         // Criar o linear layout
         LinearLayout linha = new LinearLayout(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        params.setMargins(10, 5, 10, 5);
-        linha.setOrientation(LinearLayout.HORIZONTAL);
+        params.setMargins(20, 5, 20, 5);
         linha.setLayoutParams(params);
+        linha.setOrientation(LinearLayout.HORIZONTAL);
 
         // Cria a view do aluno
         TextView novoAluno = new TextView(this);
+        novoAluno.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 5));
         novoAluno.setText(aluno.getNome());
 
         // Add aluno na linha
@@ -235,16 +255,21 @@ public class CadastroTurmaActivity extends AppCompatActivity {
 
         // Cria botões de exclusão ao lado do nome do aluno
         Button excluir = new Button(this);
+        excluir.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
+        excluir.setPadding(0, 0, 0, 0);
         excluir.setText("X");
         excluir.setTextColor(Color.WHITE);
         excluir.setBackgroundColor(Color.RED);
-        excluir.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        excluir.setMinWidth(0);
+        excluir.setMinHeight(0);
+        excluir.setIncludeFontPadding(false);
 
         // Add clique no botão de deletar
         excluir.setOnClickListener((View view) -> {
             Optional<Aluno> optAluno = listaAlunosParaAdd.stream().filter(a -> a.equals(aluno)).findFirst();
             if (optAluno.isPresent()) {
                 listaAlunosParaAdd.remove(aluno);
+                setAlunoASerAdicionado(null);
                 lnAlunos.removeView(linha);
             }
         });
@@ -259,10 +284,24 @@ public class CadastroTurmaActivity extends AppCompatActivity {
 
     // Validação dos campos
     private void validaCampos() {
+        // Valida o campo de curso da turma
+        if (spCursos.getSelectedItem() == null) {
+            spCursos.setError("Informe o Curso da turma!");
+            spCursos.requestFocus();
+            return;
+        }
+
         // Valida o campo de regime
         if (spRegime.getSelectedItem() == null) {
             spRegime.setError("Informe o Regime da turma!");
             spRegime.requestFocus();
+            return;
+        }
+
+        // Valida o campo de Periodo
+        if (spPeriodo.getSelectedItem() == null) {
+            spPeriodo.setError("Informe o Período da turma!");
+            spPeriodo.requestFocus();
             return;
         }
 
@@ -297,6 +336,7 @@ public class CadastroTurmaActivity extends AppCompatActivity {
         Turma turma = new Turma();
         turma.setRegime(spRegime.getSelectedItem().toString());
         turma.setPeriodo(spPeriodo.getSelectedItem().toString());
+        turma.setCurso(spCursos.getSelectedItem().toString());
 
         int idProfessor = Integer.parseInt(Util.splitString(atProfessor.getText().toString(), 0, " - "));
         Professor professor = ProfessorDAO.getProfessor(idProfessor);
@@ -334,6 +374,8 @@ public class CadastroTurmaActivity extends AppCompatActivity {
 
     private void limparCampos() {
         spRegime.setSelection(0);
+        spCursos.setSelection(0);
+        spPeriodo.setSelection(0);
         atProfessor.clearListSelection();
         atAlunos.clearListSelection();
     }

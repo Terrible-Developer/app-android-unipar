@@ -10,6 +10,7 @@ import android.widget.AutoCompleteTextView;
 
 import com.example.cadastroalunos.R;
 import com.example.cadastroalunos.activities.lista.ListaAlunoActivity;
+import com.example.cadastroalunos.activities.lista.ListaDisciplinaActivity;
 import com.example.cadastroalunos.activities.lista.ListaProfessorActivity;
 import com.example.cadastroalunos.activities.lista.ListaTurmaActivity;
 import com.example.cadastroalunos.dao.AlunoDAO;
@@ -45,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void cadastrarTurma(View view) {
         Intent intent = new Intent(this, ListaTurmaActivity.class);
+        startActivity(intent);
+    }
+
+    public void cadastrarDisciplina(View view) {
+        Intent intent = new Intent(this, ListaDisciplinaActivity.class);
         startActivity(intent);
     }
 }

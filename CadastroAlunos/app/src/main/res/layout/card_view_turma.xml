@@ -18,6 +18,46 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
               <!-- RA e CPF-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.8"
+                    android:hint="@string/id">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edTurmaID"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/white"
+                        android:focusable="false"
+                        android:textColor="@android:color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:hint="@string/professor">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edTurmaProfessor"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:backgroundTint="@color/white"
+                        android:focusable="false"
+                        android:textColor="@android:color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -26,17 +66,57 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
-                    android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_weight="2"
+                    android:hint="@string/curso">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edTurmaCurso"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/white"
+                        android:focusable="false"
+                        android:textColor="@android:color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
                     android:hint="@string/regime">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edCpfProfessor"
+                        android:id="@+id/edTurmaRegime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/white"
                         android:focusable="false" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/periodo"
+                    android:visibility="visible">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edTurmaPeriodo"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:backgroundTint="@color/white"
+                            android:focusable="false"
+                            android:textColor="@android:color/black" />
+
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>

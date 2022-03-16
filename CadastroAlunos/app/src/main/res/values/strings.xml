@@ -4,19 +4,26 @@
     <string name="nome">Nome</string>
     <string name="cpf">CPF</string>
     <string name="turma">Turma</string>
+    <string name="turmas">Turmas</string>
     <string name="dtNasc">Dt. Nascimento</string>
     <string name="dtMatricula">Dt. Matricula</string>
     <string name="cursos">Cursos</string>
     <string name="periodo">Período</string>
+
+    <string name="nomeDisciplina">Nome da Disciplina</string>
+
+    <string name="disciplinas">Disciplinas</string>
 
     <!-- Tela de criação de turmas -->
     <string name="regime">Regime</string>
     <string name="selecioneRegime">Regime</string>
     <string name="selecioneProfessor">Professor</string>
     <string name="professor">Professor</string>
+    <string name="professores">Professores</string>
     <string name="selecioneAlunos">Selecione os Alunos</string>
     <string name="alunos">Alunos</string>
 
+    <string name="id">ID</string>
     <string name="selecioneCurso">Curso</string>
     <string name="selecionePeriodo">Período</string>
     <string name="limpar">Limpar</string>

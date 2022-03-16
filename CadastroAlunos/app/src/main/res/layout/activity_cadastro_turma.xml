@@ -33,6 +33,17 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <fr.ganfra.materialspinner.MaterialSpinner
+                android:id="@+id/spCursoTurma"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                app:ms_arrowColor="?attr/colorPrimary"
+                app:ms_floatingLabelText="@string/cursos"
+                app:ms_hint="@string/selecioneCurso"
+                app:ms_multiline="false" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -67,9 +78,11 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:visibility="gone"
+                android:hint="@string/professor"
+                android:completionHint="Professor"
                 app:ms_arrowColor="?attr/colorPrimary"
-                app:ms_floatingLabelText="@string/alunos"
-                app:ms_hint="@string/selecioneAlunos" />
+                app:ms_floatingLabelText="@string/professor"
+                app:ms_hint="@string/selecioneProfessor" />
 
             <LinearLayout
                 android:id="@+id/lnAlunos"
@@ -89,6 +102,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_weight="5"
+                        android:hint="@string/alunos"
                         app:ms_arrowColor="?attr/colorPrimary"
                         app:ms_floatingLabelText="@string/alunos"
                         app:ms_hint="@string/selecioneAlunos" />
