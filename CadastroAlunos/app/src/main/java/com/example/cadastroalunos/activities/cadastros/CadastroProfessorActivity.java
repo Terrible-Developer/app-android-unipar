@@ -18,13 +18,17 @@ import android.widget.DatePicker;
 import android.widget.LinearLayout;
 
 import com.example.cadastroalunos.R;
+import com.example.cadastroalunos.dao.DisciplinaDAO;
 import com.example.cadastroalunos.dao.ProfessorDAO;
+import com.example.cadastroalunos.model.Disciplina;
 import com.example.cadastroalunos.model.Professor;
 import com.example.cadastroalunos.util.CpfMask;
 import com.example.cadastroalunos.util.Util;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class CadastroProfessorActivity extends AppCompatActivity {
 
@@ -33,7 +37,8 @@ public class CadastroProfessorActivity extends AppCompatActivity {
     private TextInputEditText edDtNascProfessor;
     private MaterialSpinner spCursoProfessor;
     private MaterialSpinner spPeriodoProfessor;
-    private MaterialSpinner spRegimeProfessor;
+    private MaterialSpinner spDisciplinaProfessor;
+    //private MaterialSpinner spRegimeProfessor;
 
     private LinearLayout lnPrincipal;
 
@@ -54,11 +59,12 @@ public class CadastroProfessorActivity extends AppCompatActivity {
 
         spCursoProfessor = findViewById(R.id.spCursoProfessor);
         spPeriodoProfessor = findViewById(R.id.spPeriodoProfessor);
-        spRegimeProfessor = findViewById(R.id.spRegimeProfessor);
+        spDisciplinaProfessor = findViewById(R.id.spDisciplinaProfessor);
+
+        //spRegimeProfessor = findViewById(R.id.spRegimeProfessor);
 
         lnPrincipal = findViewById(R.id.lnPrincipal);
         lnPrincipal = findViewById(R.id.lnPrincipal);
-
 
         edDtNascProfessor.setFocusable(false);
 
@@ -80,29 +86,48 @@ public class CadastroProfessorActivity extends AppCompatActivity {
 
     private void iniciaSpinners(){
 
-        String cursos[] = new String[]{"Análise e Desenv. Sistemas",
+        // Kusta de disciplionas
+        List<Disciplina> disc = new ArrayList(DisciplinaDAO.retornaDisciplinas("", new String[]{}, ""));
+
+        String[] disciplinas = new String[disc.size()];
+
+        for (int i = 0; i < disciplinas.length; i++) {
+            Disciplina disciplina = disc.get(i);
+            disciplinas[i] = disciplina.getNome();
+        }
+
+        ArrayAdapter adapterDisciplinas = new ArrayAdapter(this,
+                android.R.layout.simple_list_item_1,  disciplinas);
+
+        spDisciplinaProfessor.setAdapter(adapterDisciplinas);
+
+
+        // Lista de cursos
+        String[] cursos = new String[]{"Análise e Desenv. Sistemas",
                 "Administração", "Ciências Contábeis", "Direito",
                 "Farmácia", "Nutrição"};
-
-        String periodos[] = new String[]{"1a Série",
-                "2a Série", "3a Série", "4a Série"};
 
         ArrayAdapter adapterCursos = new ArrayAdapter(this,
                 android.R.layout.simple_list_item_1,  cursos);
 
+        spCursoProfessor.setAdapter(adapterCursos);
+
+        // Lista de períodos
+        String[] periodos = new String[]{"1a Série",
+                "2a Série", "3a Série", "4a Série"};
+
         ArrayAdapter adapterPeriodo = new ArrayAdapter(this,
                 android.R.layout.simple_list_item_1,  periodos);
 
-        spCursoProfessor.setAdapter(adapterCursos);
         spPeriodoProfessor.setAdapter(adapterPeriodo);
 
         // Criar spinner de regimes
-        String regimes[] = new String[] {"Matinal", "Diurno", "Noturno"};
+        /*String regimes[] = new String[] {"Matinal", "Diurno", "Noturno"};
 
         ArrayAdapter adapterRegimes = new ArrayAdapter(this,
                 android.R.layout.simple_list_item_1, regimes);
 
-        spRegimeProfessor.setAdapter(adapterRegimes);
+        spRegimeProfessor.setAdapter(adapterRegimes);*/
 
         //Ação ao selecionar o item da lista
         spCursoProfessor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -166,12 +191,19 @@ public class CadastroProfessorActivity extends AppCompatActivity {
             return;
         }
 
+        // Valida a disciplina do Professor
+        if(spDisciplinaProfessor.getSelectedItem() == null){
+            spDisciplinaProfessor.setError("Informe a disciplina do Professor!");
+            spDisciplinaProfessor.requestFocus();
+            return;
+        }
+
         // Valida o campo de regime do Professor
-        if(spRegimeProfessor.getSelectedItem() == null){
+        /*if(spRegimeProfessor.getSelectedItem() == null){
             spRegimeProfessor.setError("Informe o regime do Professor!");
             spRegimeProfessor.requestFocus();
             return;
-        }
+        }*/
 
         salvarProfessor();
     }
@@ -184,7 +216,8 @@ public class CadastroProfessorActivity extends AppCompatActivity {
         professor.setDtNasc(edDtNascProfessor.getText().toString());
         professor.setCurso(spCursoProfessor.getSelectedItem().toString());
         professor.setPeriodo(spPeriodoProfessor.getSelectedItem().toString());
-        professor.setRegime(spRegimeProfessor.getSelectedItem().toString());
+        professor.setDisciplina(spDisciplinaProfessor.getSelectedItem().toString());
+        //professor.setRegime(spRegimeProfessor.getSelectedItem().toString());
 
         if(ProfessorDAO.salvar(professor) > 0) {
             setResult(RESULT_OK);
@@ -224,7 +257,8 @@ public class CadastroProfessorActivity extends AppCompatActivity {
         edCpfProfessor.setText("");
         edDtNascProfessor.setText("");
         spCursoProfessor.setSelection(0);
-        spRegimeProfessor.setSelection(0);
+        spDisciplinaProfessor.setSelection(0);
+        //spRegimeProfessor.setSelection(0);
     }
 
     public void selecionarData(View view) {

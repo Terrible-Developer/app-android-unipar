@@ -35,6 +35,14 @@
         <activity
             android:name=".activities.cadastros.CadastroDisciplinaActivity"
             android:exported="false" />
+        <activity
+            android:name=".activities.cadastros.CadastroNotaActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".activities.NotasAlunoActivity"
+            android:exported="false" />
+
 
         <activity
             android:name=".activities.MainActivity"

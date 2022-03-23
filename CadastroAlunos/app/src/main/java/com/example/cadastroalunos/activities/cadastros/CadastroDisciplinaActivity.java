@@ -54,10 +54,10 @@ public class CadastroDisciplinaActivity extends AppCompatActivity {
             return;
         }
 
-        salvarAluno();
+        salvarDisciplina();
     }
 
-    public void salvarAluno(){
+    public void salvarDisciplina(){
         Disciplina disciplina = new Disciplina();
 
         disciplina.setNome(edDisciplinaNome.getText().toString());

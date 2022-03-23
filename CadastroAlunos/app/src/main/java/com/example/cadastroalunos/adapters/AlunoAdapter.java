@@ -29,7 +29,7 @@ public class AlunoAdapter extends RecyclerView.Adapter<AlunoAdapter.AlunoViewHol
         TextInputEditText edNomeAluno;
         TextInputEditText edCpfAluno;
         TextInputEditText edCursoAluno;
-        TextInputEditText edRegimeAluno;
+        //TextInputEditText edRegimeAluno;
         TextInputEditText edPeriodoAluno;
         TextInputEditText edDtMatriculaAluno;
         TextInputEditText edDtNascAluno;
@@ -41,7 +41,7 @@ public class AlunoAdapter extends RecyclerView.Adapter<AlunoAdapter.AlunoViewHol
             edNomeAluno = (TextInputEditText)itemView.findViewById(R.id.edNomeAluno);
             edCpfAluno =  (TextInputEditText)itemView.findViewById(R.id.edCpfAluno);
             edCursoAluno = (TextInputEditText)itemView.findViewById(R.id.edCursoAluno);
-            edRegimeAluno = (TextInputEditText)itemView.findViewById(R.id.edRegimeAluno);
+            //edRegimeAluno = (TextInputEditText)itemView.findViewById(R.id.edRegimeAluno);
             edPeriodoAluno = (TextInputEditText)itemView.findViewById(R.id.edPeriodoAluno);
             edDtMatriculaAluno = (TextInputEditText)itemView.findViewById(R.id.edDtMatriculaAluno);
             edDtNascAluno = (TextInputEditText)itemView.findViewById(R.id.edDtNascAluno);
@@ -67,7 +67,7 @@ public class AlunoAdapter extends RecyclerView.Adapter<AlunoAdapter.AlunoViewHol
         holder.edRaAluno.setText(String.valueOf(aluno.getRa()));
         holder.edCpfAluno.setText(aluno.getCpf());
         holder.edNomeAluno.setText(aluno.getNome());
-        holder.edRegimeAluno.setText(aluno.getRegime());
+        //holder.edRegimeAluno.setText(aluno.getRegime());
         holder.edCursoAluno.setText(aluno.getCurso());
         holder.edPeriodoAluno.setText(aluno.getPeriodo());
         holder.edDtMatriculaAluno.setText(aluno.getDtMatricula());

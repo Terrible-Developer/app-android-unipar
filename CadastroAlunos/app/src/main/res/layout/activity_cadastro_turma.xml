@@ -77,9 +77,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:visibility="gone"
-                android:hint="@string/professor"
                 android:completionHint="Professor"
+                android:hint="@string/professor"
+                android:visibility="gone"
                 app:ms_arrowColor="?attr/colorPrimary"
                 app:ms_floatingLabelText="@string/professor"
                 app:ms_hint="@string/selecioneProfessor" />

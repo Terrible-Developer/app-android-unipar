@@ -13,6 +13,10 @@
     <string name="nomeDisciplina">Nome da Disciplina</string>
 
     <string name="disciplinas">Disciplinas</string>
+    <string name="disciplina">Disciplina</string>
+    <string name="selecioneDisciplina">Selecione a Disciplina</string>
+
+    <string name="nota">Nota</string>
 
     <!-- Tela de criação de turmas -->
     <string name="regime">Regime</string>

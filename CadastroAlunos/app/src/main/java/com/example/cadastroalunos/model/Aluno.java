@@ -13,13 +13,13 @@ public class Aluno extends SugarRecord {
     private String dtMatricula;
     private String curso;
     private String periodo;
-    private String regime;
+    //private String regime;
     private Turma turma;
 
     public Aluno() {
     }
 
-    public Aluno(int ra, String nome, String cpf, String dtNasc, String dtMatricula, String curso, String periodo, String regime, Turma turma) {
+    public Aluno(int ra, String nome, String cpf, String dtNasc, String dtMatricula, String curso, String periodo, /*String regime,*/ Turma turma) {
         this.ra = ra;
         this.nome = nome;
         this.cpf = cpf;
@@ -27,7 +27,7 @@ public class Aluno extends SugarRecord {
         this.dtMatricula = dtMatricula;
         this.curso = curso;
         this.periodo = periodo;
-        this.regime = regime;
+        //this.regime = regime;
         this.turma = turma;
     }
 
@@ -41,7 +41,7 @@ public class Aluno extends SugarRecord {
                 ", dtMatricula='" + dtMatricula + '\'' +
                 ", curso='" + curso + '\'' +
                 ", periodo='" + periodo + '\'' +
-                ", regime='" + regime + '\'' +
+                //", regime='" + regime + '\'' +
                 ", turma=" + turma +
                 '}';
     }
@@ -51,12 +51,12 @@ public class Aluno extends SugarRecord {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Aluno aluno = (Aluno) o;
-        return ra == aluno.ra && Objects.equals(nome, aluno.nome) && Objects.equals(cpf, aluno.cpf) && Objects.equals(dtNasc, aluno.dtNasc) && Objects.equals(dtMatricula, aluno.dtMatricula) && Objects.equals(curso, aluno.curso) && Objects.equals(periodo, aluno.periodo) && Objects.equals(regime, aluno.regime) && Objects.equals(turma, aluno.turma);
+        return ra == aluno.ra && Objects.equals(nome, aluno.nome) && Objects.equals(cpf, aluno.cpf) && Objects.equals(dtNasc, aluno.dtNasc) && Objects.equals(dtMatricula, aluno.dtMatricula) && Objects.equals(curso, aluno.curso) && Objects.equals(periodo, aluno.periodo) /*&& Objects.equals(regime, aluno.regime)*/ && Objects.equals(turma, aluno.turma);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ra, nome, cpf, dtNasc, dtMatricula, curso, periodo, regime, turma);
+        return Objects.hash(ra, nome, cpf, dtNasc, dtMatricula, curso, periodo, /*regime,*/ turma);
     }
 
     public int getRa() {
@@ -115,13 +115,13 @@ public class Aluno extends SugarRecord {
         this.periodo = periodo;
     }
 
-    public String getRegime() {
+    /*public String getRegime() {
         return regime;
     }
 
     public void setRegime(String regime) {
         this.regime = regime;
-    }
+    }*/
 
     public Turma getTurma() {
         return turma;

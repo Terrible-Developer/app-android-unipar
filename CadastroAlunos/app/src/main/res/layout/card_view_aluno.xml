@@ -73,7 +73,7 @@
             </LinearLayout>
 
             <!-- NOME -->
-            <com.google.android.material.textfield.TextInputLayout
+            <!--<com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/regime"
@@ -86,7 +86,7 @@
                     android:backgroundTint="@color/white"
                     android:focusable="false"
                     android:textColor="@android:color/black" />
-            </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>-->
 
             <!-- CURSO E PERIODO-->
             <LinearLayout

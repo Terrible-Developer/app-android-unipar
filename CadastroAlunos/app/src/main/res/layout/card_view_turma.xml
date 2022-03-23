@@ -109,16 +109,35 @@
                     android:visibility="visible">
 
                     <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/edTurmaPeriodo"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="5dp"
-                            android:backgroundTint="@color/white"
-                            android:focusable="false"
-                            android:textColor="@android:color/black" />
+                        android:id="@+id/edTurmaPeriodo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:backgroundTint="@color/white"
+                        android:focusable="false"
+                        android:textColor="@android:color/black"
+                        android:visibility="visible" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lnAlunos"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="7dp"
+                android:orientation="vertical"
+                android:padding="1dp">
+
+                <TextView
+                    android:id="@+id/tvTurma"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:paddingLeft="12sp"
+                    android:text="@string/alunos"
+                    android:visibility="visible" />
             </LinearLayout>
 
             <!-- NOME -->

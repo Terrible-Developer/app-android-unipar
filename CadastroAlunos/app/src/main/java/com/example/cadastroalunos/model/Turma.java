@@ -1,6 +1,10 @@
 package com.example.cadastroalunos.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.orm.SugarRecord;
+import com.orm.dsl.Ignore;
 
 import java.util.List;
 import java.util.Objects;
@@ -11,7 +15,7 @@ public class Turma extends SugarRecord {
     private String regime;
     private String periodo;
     private String curso;
-    private List<Aluno> alunos;
+    private /*List<Aluno>*/String alunos;
     private Professor professor;
 
     public Turma() {}
@@ -42,7 +46,7 @@ public class Turma extends SugarRecord {
         return Objects.hash(idTurma, apelido, regime, periodo, curso, alunos, professor);
     }
 
-    public Turma(String regime, String periodo, String curso, List<Aluno> alunos, Professor professor) {
+    public Turma(String regime, String periodo, String curso, /*List<Aluno>*/String alunos, Professor professor) {
         this.apelido = "Turma #"+idTurma;
         this.regime = regime;
         this.periodo = periodo;
@@ -91,11 +95,19 @@ public class Turma extends SugarRecord {
         this.curso = curso;
     }
 
-    public List<Aluno> getAlunos() {
+    /*public List<Aluno> getAlunos() {
         return alunos;
     }
 
     public void setAlunos(List<Aluno> alunos) {
+        this.alunos = alunos;
+    }*/
+
+    public String getAlunos() {
+        return alunos;
+    }
+
+    public void setAlunos(String alunos) {
         this.alunos = alunos;
     }
 

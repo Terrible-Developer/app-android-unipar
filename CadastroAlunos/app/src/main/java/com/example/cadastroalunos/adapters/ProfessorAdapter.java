@@ -30,7 +30,8 @@ public class ProfessorAdapter extends RecyclerView.Adapter<ProfessorAdapter.Prof
         TextInputEditText edDtNasc;
         TextInputEditText edCursoProfessor;
         TextInputEditText edPeriodoProfessor;
-        TextInputEditText edRegimeProfessor;
+        TextInputEditText edDisciplinaProfessor;
+        //TextInputEditText edRegimeProfessor;
 
         public ProfessorViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -40,7 +41,9 @@ public class ProfessorAdapter extends RecyclerView.Adapter<ProfessorAdapter.Prof
             edCursoProfessor = (TextInputEditText)itemView.findViewById(R.id.edCursoProfessor);
             edDtNasc = (TextInputEditText)itemView.findViewById(R.id.edDtNascProfessor);
             edPeriodoProfessor = (TextInputEditText)itemView.findViewById(R.id.edPeriodoProfessor);
-            edRegimeProfessor = (TextInputEditText)itemView.findViewById(R.id.edRegimeProfessor);
+            edDisciplinaProfessor = (TextInputEditText)itemView.findViewById(R.id.edDisciplinaProfessor);
+
+            //edRegimeProfessor = (TextInputEditText)itemView.findViewById(R.id.edRegimeProfessor);
         }
     }
 
@@ -64,7 +67,8 @@ public class ProfessorAdapter extends RecyclerView.Adapter<ProfessorAdapter.Prof
         holder.edDtNasc.setText(professor.getDtNasc());
         holder.edCursoProfessor.setText(professor.getCurso());
         holder.edPeriodoProfessor.setText(professor.getPeriodo());
-        holder.edRegimeProfessor.setText(professor.getRegime());
+        holder.edDisciplinaProfessor.setText(professor.getDisciplina());
+        //holder.edRegimeProfessor.setText(professor.getRegime());
 
     }
 
