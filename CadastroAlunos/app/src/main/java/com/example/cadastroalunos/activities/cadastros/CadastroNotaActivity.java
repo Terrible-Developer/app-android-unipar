@@ -263,7 +263,7 @@ public class CadastroNotaActivity extends AppCompatActivity {
      */
     public void salvarNotas() {
         Nota nota = new Nota();
-        nota.setAlunoID(aluno.getId());
+        nota.setIdAluno(aluno.getId());
 
         // Lista de alunos de forma CANSADA kkkkk
         StringBuilder listaNotas = new StringBuilder();
@@ -273,10 +273,15 @@ public class CadastroNotaActivity extends AppCompatActivity {
             int idDisciplina = Integer.parseInt(Util.splitString(disciplina, 0, " - "));
             int notaDisciplina = Integer.parseInt(Util.splitString(disciplina, 2, " - "));
 
+            if (listaNotas.toString().contains(Integer.toString(idDisciplina))) {
+                Log.e("erro", "ja tem essa disciplina lá mano");
+                return;
+            }
+
             //Disciplina disc = DisciplinaDAO.getDisciplina(idDisciplina);
 
-            Log.e("idDisciplina", String.valueOf(idDisciplina));
-            Log.e("notaDisciplina", String.valueOf(notaDisciplina));
+            //Log.e("idDisciplina", String.valueOf(idDisciplina));
+            //Log.e("notaDisciplina", String.valueOf(notaDisciplina));
 
             if (id > 0) {
                 listaNotas.append(",");
@@ -319,7 +324,7 @@ public class CadastroNotaActivity extends AppCompatActivity {
     }
 
     private void limparCampos() {
+        atDisciplinaNota.setText("");
         edNota.setText("");
-        atDisciplinaNota.setSelection(0);
     }
 }

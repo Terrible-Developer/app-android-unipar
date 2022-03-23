@@ -47,7 +47,7 @@ public class NotasAlunoActivity extends AppCompatActivity {
         String alunoID = intent.getStringExtra("alunoID");
         Aluno alunoObj = AlunoDAO.getAluno(Integer.parseInt(alunoID));
 
-        notas = NotaDAO.retornaNotas("alunoID = ?", new String[]{alunoID}, "");
+        notas = NotaDAO.retornaNotas("ID_ALUNO = ?", new String[] {alunoID}, "");
 
         tlNotasAluno = findViewById(R.id.tlNotasAluno);
 
@@ -80,6 +80,19 @@ public class NotasAlunoActivity extends AppCompatActivity {
 
             coluna.addView(nomeAluno);
             tableRow.addView(coluna);
+
+            // Cria nota aluno
+            LinearLayout colunaNota = new LinearLayout(this);
+            TableRow.LayoutParams colunaNotaParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            colunaNotaParams.setMargins(5, 5, 5, 5);
+            colunaNota.setLayoutParams(colunaNotaParams);
+
+            TextView notaAluno = new TextView(this);
+            List<Nota> notas = NotaDAO.retornaNotas("ID_ALUNO = ?", new String[]{""+aluno.getId()}, "");
+            notaAluno.setText(disc.getNome());
+
+            coluna.addView(nomeAluno);
+            tableRow.addView(colunaNota);
 
             tlNotasAluno.addView(tableRow);
         }));
