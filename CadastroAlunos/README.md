@@ -17,5 +17,5 @@ Desenvolver um app p/ controle de notas e frequências
 - Como ver as notas e frequencia dos alunos? Clica no nome dele na tela de Turmas dentro do card na parte de Lista de Alunos.
 
 ### Integrantes:
-- Victor Bruno Paro
+00187557 - Victor Bruno Paro
 00181627 - Matheus Guilherme Ferreira
