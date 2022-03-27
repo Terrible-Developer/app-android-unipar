@@ -11,12 +11,11 @@ import java.util.Objects;
 
 public class Turma extends SugarRecord {
     private int idTurma;
-    private String apelido;
     private String regime;
     private String periodo;
     private String curso;
     private /*List<Aluno>*/String alunos;
-    private Professor professor;
+    private Long idProfessor;
 
     public Turma() {}
 
@@ -25,50 +24,31 @@ public class Turma extends SugarRecord {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Turma turma = (Turma) o;
-        return idTurma == turma.idTurma && Objects.equals(apelido, turma.apelido) && Objects.equals(regime, turma.regime) && Objects.equals(periodo, turma.periodo) && Objects.equals(curso, turma.curso) && Objects.equals(alunos, turma.alunos) && Objects.equals(professor, turma.professor);
+        return Objects.equals(regime, turma.regime) && Objects.equals(periodo, turma.periodo) && Objects.equals(curso, turma.curso) && Objects.equals(alunos, turma.alunos) && Objects.equals(idProfessor, turma.idProfessor);
     }
 
     @Override
     public String toString() {
         return "Turma{" +
-                "idTurma=" + idTurma +
-                ", apelido='" + apelido + '\'' +
                 ", regime='" + regime + '\'' +
                 ", periodo='" + periodo + '\'' +
                 ", curso='" + curso + '\'' +
                 ", alunos=" + alunos +
-                ", professor=" + professor +
+                ", idProfessor=" + idProfessor +
                 '}';
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idTurma, apelido, regime, periodo, curso, alunos, professor);
+        return Objects.hash(regime, periodo, curso, alunos, idProfessor);
     }
 
-    public Turma(String regime, String periodo, String curso, /*List<Aluno>*/String alunos, Professor professor) {
-        this.apelido = "Turma #"+idTurma;
+    public Turma(String regime, String periodo, String curso, /*List<Aluno>*/String alunos, Long idProfessor) {
         this.regime = regime;
         this.periodo = periodo;
         this.curso = curso;
         this.alunos = alunos;
-        this.professor = professor;
-    }
-
-    public int getIdTurma() {
-        return idTurma;
-    }
-
-    public void setIdTurma(int idTurma) {
-        this.idTurma = idTurma;
-    }
-
-    public String getApelido() {
-        return apelido;
-    }
-
-    public void setApelido(String apelido) {
-        this.apelido = apelido;
+        this.idProfessor = idProfessor;
     }
 
     public String getRegime() {
@@ -111,11 +91,11 @@ public class Turma extends SugarRecord {
         this.alunos = alunos;
     }
 
-    public Professor getProfessor() {
-        return professor;
+    public Long getIdProfessor() {
+        return idProfessor;
     }
 
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
+    public void setIdProfessor(Long idProfessor) {
+        this.idProfessor = idProfessor;
     }
 }

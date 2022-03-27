@@ -26,11 +26,13 @@ public class DisciplinaAdapter extends RecyclerView.Adapter<DisciplinaAdapter.Di
 
     public static class DisciplinaViewHolder extends RecyclerView.ViewHolder {
         TextInputEditText edDisciplinaNome;
+        TextInputEditText edDisciplinaTotalAulas;
 
         public DisciplinaViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            edDisciplinaNome = (TextInputEditText)itemView.findViewById(R.id.edDisciplinaNome);
+            edDisciplinaNome = itemView.findViewById(R.id.edDisciplinaNome);
+            edDisciplinaTotalAulas = itemView.findViewById(R.id.edDisciplinaTotalAulas);
 
         }
     }
@@ -51,6 +53,7 @@ public class DisciplinaAdapter extends RecyclerView.Adapter<DisciplinaAdapter.Di
         Disciplina disciplina = listaDisciplina.get(position);
 
         holder.edDisciplinaNome.setText(String.valueOf(disciplina.getNome()));
+        holder.edDisciplinaTotalAulas.setText(String.valueOf(disciplina.getTotalAulas()));
 
     }
 

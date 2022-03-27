@@ -17,6 +17,15 @@
     <string name="selecioneDisciplina">Selecione a Disciplina</string>
 
     <string name="nota">Nota</string>
+    <string name="notas">Notas</string>
+    <string name="frequencia">Frequência</string>
+
+    <string name="totalDeAulas">Total de Aulas</string>
+
+    <string name="dataDaPresenca">Data da Presença</string>
+
+    <string name="notasVazias">Este aluno ainda não possui notas</string>
+    <string name="frequenciaVazias">Este aluno ainda não possui frequencia</string>
 
     <!-- Tela de criação de turmas -->
     <string name="regime">Regime</string>

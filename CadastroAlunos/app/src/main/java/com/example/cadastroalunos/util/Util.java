@@ -39,7 +39,7 @@ public class Util {
      */
     public static String splitString(String string, int index, String separator) {
         String[] partes = string.split(separator);
-        System.out.println(Arrays.toString(partes));
+        //System.out.println(Arrays.toString(partes));
         return partes[index];
     }
 }

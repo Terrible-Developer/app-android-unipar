@@ -43,7 +43,7 @@ public class ListaTurmaActivity extends AppCompatActivity {
 
     public void atualizaListaTurma(){
         List<Turma> listaTurma;
-        listaTurma = TurmaDAO.retornaTurmas("", new String[]{}, "apelido asc");
+        listaTurma = TurmaDAO.retornaTurmas("", new String[]{}, "id asc");
         Log.e("PHS", "Tamanho da lista: "+listaTurma.size());
 
         rvListaTurmas = findViewById(R.id.rvListaTurmas);

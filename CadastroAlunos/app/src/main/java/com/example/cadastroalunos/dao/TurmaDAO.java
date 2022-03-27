@@ -29,6 +29,15 @@ public class TurmaDAO {
         }
     }
 
+    public static Turma getTurma(Long id){
+        try{
+            return Turma.findById(Turma.class, id);
+        }catch (Exception ex){
+            Log.e("Erro", "Erro ao retornar o turma: "+ex.getMessage());
+            return null;
+        }
+    }
+
     public static List<Turma> retornaTurmas(String where, String[] whereArgs, String orderBy){
         List<Turma> list = new ArrayList<>();
         try{

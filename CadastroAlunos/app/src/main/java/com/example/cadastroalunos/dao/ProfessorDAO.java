@@ -28,6 +28,15 @@ public class ProfessorDAO {
         }
     }
 
+    public static Professor getProfessor(Long id){
+        try{
+            return Professor.findById(Professor.class, id);
+        }catch (Exception ex){
+            Log.e("Erro", "Erro ao retornar o professor: "+ex.getMessage());
+            return null;
+        }
+    }
+
     public static List<Professor> retornaProfessores(String where, String[]whereArgs, String orderBy){
         List<Professor> list = new ArrayList<>();
         try{

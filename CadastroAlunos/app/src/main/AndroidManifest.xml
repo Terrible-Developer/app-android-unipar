@@ -38,9 +38,12 @@
         <activity
             android:name=".activities.cadastros.CadastroNotaActivity"
             android:exported="false" />
+        <activity
+            android:name=".activities.cadastros.CadastroFrequenciaActivity"
+            android:exported="false" />
 
         <activity
-            android:name=".activities.NotasAlunoActivity"
+            android:name=".activities.SituacaoAlunoActivity"
             android:exported="false" />
 
 

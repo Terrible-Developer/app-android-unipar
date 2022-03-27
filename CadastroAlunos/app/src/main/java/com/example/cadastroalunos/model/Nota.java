@@ -7,11 +7,13 @@ import java.util.Objects;
 public class Nota extends SugarRecord {
     private int notaID;
     private long idAluno;
+    private long idTurma;
     private String notas;
 
-    public Nota(int notaID, long idAluno, String notas) {
+    public Nota(int notaID, long idAluno, long idTurma, String notas) {
         this.notaID = notaID;
         this.idAluno = idAluno;
+        this.idTurma = idTurma;
         this.notas = notas;
     }
 
@@ -42,11 +44,20 @@ public class Nota extends SugarRecord {
         this.notas = notas;
     }
 
+    public long getIdTurma() {
+        return idTurma;
+    }
+
+    public void setIdTurma(long idTurma) {
+        this.idTurma = idTurma;
+    }
+
     @Override
     public String toString() {
         return "Nota{" +
                 "notaID=" + notaID +
                 ", idAluno=" + idAluno +
+                ", idTurma=" + idTurma +
                 ", notas='" + notas + '\'' +
                 '}';
     }
@@ -56,11 +67,11 @@ public class Nota extends SugarRecord {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Nota nota = (Nota) o;
-        return notaID == nota.notaID && idAluno == nota.idAluno && Objects.equals(notas, nota.notas);
+        return notaID == nota.notaID && idAluno == nota.idAluno && Objects.equals(notas, nota.notas) && Objects.equals(idTurma, nota.idTurma);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(notaID, idAluno, notas);
+        return Objects.hash(notaID, idAluno, idTurma, notas);
     }
 }

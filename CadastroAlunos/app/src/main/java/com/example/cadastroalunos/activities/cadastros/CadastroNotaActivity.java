@@ -8,6 +8,9 @@ import fr.ganfra.materialspinner.MaterialSpinner;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,6 +34,7 @@ import com.example.cadastroalunos.model.Disciplina;
 import com.example.cadastroalunos.model.Nota;
 import com.example.cadastroalunos.model.Professor;
 import com.example.cadastroalunos.model.Turma;
+import com.example.cadastroalunos.util.InputFilterMinMax;
 import com.example.cadastroalunos.util.Util;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -55,19 +59,6 @@ public class CadastroNotaActivity extends AppCompatActivity {
     private LinearLayout lnNotas;
 
     private Disciplina disciplinaASerAdicionada;
-    private Integer notaASerAdicionada;
-
-    public Integer getNotaASerAdicionada() {
-        return notaASerAdicionada;
-    }
-
-    public void setNotaASerAdicionada(Integer notaASerAdicionada) {
-        this.notaASerAdicionada = notaASerAdicionada;
-    }
-
-    public Disciplina getDisciplinaASerAdicionada() {
-        return disciplinaASerAdicionada;
-    }
 
     public void setDisciplinaASerAdicionada(Disciplina disciplinaASerAdicionada) {
         this.disciplinaASerAdicionada = disciplinaASerAdicionada;
@@ -99,6 +90,8 @@ public class CadastroNotaActivity extends AppCompatActivity {
         this.aluno = aluno;
     }
 
+    List<LinearLayout> listaNotasComponents;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent intent = getIntent();
@@ -116,8 +109,7 @@ public class CadastroNotaActivity extends AppCompatActivity {
 
         adicionarNota = findViewById(R.id.adicionarNota);
 
-        // Inicia os spinner
-        iniciaBehaviors();
+        listaNotasComponents = new ArrayList<>();
 
         // Startar objetos
         String idAluno = intent.getStringExtra("alunoID");
@@ -127,11 +119,20 @@ public class CadastroNotaActivity extends AppCompatActivity {
             setAluno(alunoObject);
             super.setTitle("Notas do "+aluno.getNome());
         }
+
+        // Inicia os spinner
+        iniciaBehaviors();
     }
 
 
+    /**
+     * Inicia todos os comportamentos dos campos
+     */
     private void iniciaBehaviors() {
         criarACDisciplinas();
+
+        // Add filtro para não ultrapassar o valor de 100
+        edNota.setFilters(new InputFilter[]{new InputFilterMinMax(0, 100)});
 
         // Add evento ao clicar em adicionar aluno
         adicionarNota.setOnClickListener((View view) -> {
@@ -147,45 +148,56 @@ public class CadastroNotaActivity extends AppCompatActivity {
     private void criarACDisciplinas() {
         atDisciplinaNota.setVisibility(View.VISIBLE);
 
-        // Kusta de disciplionas
-        List<Disciplina> disc = new ArrayList(DisciplinaDAO.retornaDisciplinas("", new String[]{}, ""));
+        Turma turma = TurmaDAO.getTurma(aluno.getIdTurma());
 
-        String[] disciplinas = new String[disc.size()];
+        if (turma != null) {
+            Professor professor = ProfessorDAO.getProfessor(turma.getIdProfessor());
 
-        for (int i = 0; i < disciplinas.length; i++) {
-            Disciplina disciplina = disc.get(i);
-            disciplinas[i] = disciplina.getId()+" - "+disciplina.getNome();
-        }
+            if (professor != null) {
 
-        ArrayAdapter adapterDisciplinas = new ArrayAdapter(this,
-                android.R.layout.simple_list_item_1,  disciplinas);
+                // Lista de disciplinas
+                List<Disciplina> disc = new ArrayList(DisciplinaDAO.retornaDisciplinas("nome = ?", new String[]{professor.getDisciplina()}, ""));
 
-        atDisciplinaNota.setAdapter(adapterDisciplinas);
+                String[] disciplinas = new String[disc.size()];
 
-        // Add evento
-        atDisciplinaNota.setOnItemClickListener((parent, view, position, rowId) -> {
-            String selection = (String) parent.getItemAtPosition(position);
-            //TODO Do something with the selected text
+                for (int i = 0; i < disciplinas.length; i++) {
+                    Disciplina disciplina = disc.get(i);
+                    disciplinas[i] = disciplina.getId() + " - " + disciplina.getNome();
+                }
 
-            // Pega o aluno baseado no RA
-            int idDisciplina = Integer.parseInt(Util.splitString(selection, 0, " - "));
-            Disciplina disciplina = DisciplinaDAO.getDisciplina(idDisciplina);
+                ArrayAdapter adapterDisciplinas = new ArrayAdapter(this,
+                        android.R.layout.simple_list_item_1, disciplinas);
 
-            if (disciplina != null && edNota.getText() != null) {
-                setDisciplinaASerAdicionada(disciplina);
-                //setNotaASerAdicionada(Integer.valueOf(edNota.getText().toString()));
-                listaDisciplinasParaAdd.add(disciplina.getId()+ " - "+disciplina.getNome()+ " - "+ edNota.getText().toString());
+                atDisciplinaNota.setAdapter(adapterDisciplinas);
+
+                // Add evento
+                atDisciplinaNota.setOnItemClickListener((parent, view, position, rowId) -> {
+                    String selection = (String) parent.getItemAtPosition(position);
+
+                    // Pega o aluno baseado no RA
+                    int idDisciplina = Integer.parseInt(Util.splitString(selection, 0, " - "));
+                    Disciplina disciplina = DisciplinaDAO.getDisciplina(idDisciplina);
+
+                    if (disciplina != null && edNota.getText() != null) {
+                        setDisciplinaASerAdicionada(disciplina);
+                        listaDisciplinasParaAdd.add(disciplina.getId() + " - " + edNota.getText().toString()+ " - "+disciplina.getNome());
+                    }
+                });
             }
-        });
+        }
     }
 
     /**
      * Adiciona nota na lista
      */
     private void adicionaNota() {
-
         if (edNota.getText().toString().equals("")) {
             edNota.setError("Selecione uma nota antes");
+            return;
+        }
+
+        if (getListaDisciplinasParaAdd().isEmpty()) {
+            atDisciplinaNota.setError("Selecione a matéria antes de atribuir a nota");
             return;
         }
 
@@ -205,41 +217,48 @@ public class CadastroNotaActivity extends AppCompatActivity {
         // Cria a view da disciplina
         TextView novaDisciplina = new TextView(this);
         novaDisciplina.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 5));
-        novaDisciplina.setText(disciplinaASerAdicionada.getNome());
+        novaDisciplina.setText(disciplinaASerAdicionada.getNome()+ " - "+edNota.getText().toString());
 
         // Add disciplina na linha
         linha.addView(novaDisciplina);
-        getListaDisciplinasParaAdd().add(disciplinaASerAdicionada.getId() +" - "+ disciplinaASerAdicionada.getNome() +" - "+edNota.getText().toString());
 
         // Cria botões de exclusão ao lado do nome do aluno
-        FloatingActionButton excluir = new FloatingActionButton(this);
+        /*FloatingActionButton excluir = new FloatingActionButton(this);
         LinearLayout.LayoutParams excluirLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0.5f);
         excluirLayoutParams.setMargins(0, 0, 0, 0);
         excluir.setLayoutParams(excluirLayoutParams);
         excluir.setPadding(0, 0, 0, 0);
         excluir.setClickable(true);
         excluir.setImageResource(R.drawable.ic_clear);
-        excluir.setSize(FloatingActionButton.SIZE_MINI);
+        excluir.setSize(FloatingActionButton.SIZE_MINI);*/
 
         // Add clique no botão de deletar
-        excluir.setOnClickListener((View view) -> {
-            Optional<String> optDisciplina = getListaDisciplinasParaAdd().stream().filter(a -> a.equals(disciplina)).findFirst();
+        /*excluir.setOnClickListener((View view) -> {
+            getListaDisciplinasParaAdd().forEach(nt-> {
+                Disciplina ntDsc = DisciplinaDAO.getDisciplina(Integer.parseInt(Util.splitString(nt, 2, " - ")));
+            });
+
+            Optional<String> optDisciplina = getListaDisciplinasParaAdd().stream().filter(a -> Util.splitString(a, 1, " - ").contains(Util.splitString(disciplina, 1, " - "))).findFirst();
             if (optDisciplina.isPresent()) {
-                getListaDisciplinasParaAdd().remove(disciplina);
-                setDisciplina(null);
                 lnNotas.removeView(linha);
+                listaNotasComponents.remove(linha);
+                setDisciplina(null);
+                getListaDisciplinasParaAdd().remove(disciplina);
             }
-        });
+        });*/
 
         // Add botões de controle na linha
-        linha.addView(excluir);
+        //linha.addView(excluir);
 
         // Add linha pro layout
         lnNotas.addView(linha);
+        listaNotasComponents.add(linha);
     }
 
 
-    // Validação dos campos
+    /**
+     * Validação dos campos
+     */
     private void validaCampos() {
         // Valida o campo de curso da turma
         if (edNota.getText().toString().trim().isEmpty() || Integer.parseInt(edNota.getText().toString()) > 100) {
@@ -259,41 +278,37 @@ public class CadastroNotaActivity extends AppCompatActivity {
     }
 
     /**
-     * Salva a turma no banco
+     * Salva a nota no banco
      */
     public void salvarNotas() {
+        List<Nota> notasAluno = NotaDAO.retornaNotas("ID_ALUNO = ? and ID_TURMA = ?", new String[]{aluno.getId().toString(), aluno.getIdTurma().toString()}, "");
+
+        if (!notasAluno.isEmpty()) {
+            Util.customSnackBar(lnNotas, "O aluno (" + aluno.getNome() + ") já possui notas cadastradas!", 0);
+            return;
+        }
+
         Nota nota = new Nota();
         nota.setIdAluno(aluno.getId());
+        nota.setIdTurma(aluno.getIdTurma());
 
         // Lista de alunos de forma CANSADA kkkkk
         StringBuilder listaNotas = new StringBuilder();
 
+        // Adiciona as notas do aluno em uma string única para salvar
         getListaDisciplinasParaAdd().forEach((disciplina) -> {
-            int id = getListaDisciplinasParaAdd().indexOf(disciplina);
+            int indexLoop = getListaDisciplinasParaAdd().indexOf(disciplina);
             int idDisciplina = Integer.parseInt(Util.splitString(disciplina, 0, " - "));
-            int notaDisciplina = Integer.parseInt(Util.splitString(disciplina, 2, " - "));
+            int notaDisciplina = Integer.parseInt(Util.splitString(disciplina, 1, " - "));
 
-            if (listaNotas.toString().contains(Integer.toString(idDisciplina))) {
-                Log.e("erro", "ja tem essa disciplina lá mano");
-                return;
-            }
-
-            //Disciplina disc = DisciplinaDAO.getDisciplina(idDisciplina);
-
-            //Log.e("idDisciplina", String.valueOf(idDisciplina));
-            //Log.e("notaDisciplina", String.valueOf(notaDisciplina));
-
-            if (id > 0) {
+            if (indexLoop > 0) {
                 listaNotas.append(",");
             }
-            listaNotas.append(idDisciplina+" - "+notaDisciplina);
+            listaNotas.append(idDisciplina).append(" - ").append(notaDisciplina);
         });
 
+        Log.e("Lista de notas", listaNotas.toString());
         nota.setNotas(listaNotas.toString());
-
-        Log.e("xota", listaNotas.toString());
-        // TODO - E/xota: 1 - 1001 - 100  - corrigir na hr de salvar no banco
-
 
         if (NotaDAO.salvar(nota) > 0) {
             setResult(RESULT_OK);
@@ -326,5 +341,9 @@ public class CadastroNotaActivity extends AppCompatActivity {
     private void limparCampos() {
         atDisciplinaNota.setText("");
         edNota.setText("");
+        getListaDisciplinasParaAdd().clear();
+        listaNotasComponents.forEach(component-> {
+            lnNotas.removeView(component);
+        });
     }
 }

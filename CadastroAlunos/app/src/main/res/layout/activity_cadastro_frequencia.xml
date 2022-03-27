@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/lnPrincipalFrequencia"
+    tools:context=".activities.cadastros.CadastroFrequenciaActivity">
+
+
+    <LinearLayout
+        android:id="@+id/lnFrequencia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <AutoCompleteTextView
+                android:id="@+id/atDisciplinaFrequencia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="5"
+                android:hint="@string/disciplina"
+                app:ms_arrowColor="?attr/colorPrimary"
+                app:ms_floatingLabelText="@string/disciplina"
+                app:ms_hint="@string/selecioneDisciplina" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="@string/dataDaPresenca">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edDataFrequencia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:onClick="selecionarData"
+            android:textColor="@android:color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
+</LinearLayout>

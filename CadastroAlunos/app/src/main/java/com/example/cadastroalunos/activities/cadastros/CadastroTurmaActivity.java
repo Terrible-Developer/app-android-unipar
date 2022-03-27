@@ -52,6 +52,8 @@ public class CadastroTurmaActivity extends AppCompatActivity {
 
     private List<Aluno> listaAlunosParaAdd;
 
+    List<LinearLayout> listaAlunosComponents;
+
     public List<Aluno> getListaAlunosParaAdd() {
         return listaAlunosParaAdd;
     }
@@ -86,6 +88,8 @@ public class CadastroTurmaActivity extends AppCompatActivity {
         spCursos = findViewById(R.id.spCursoTurma);
         adicionarAluno = findViewById(R.id.adicionarAluno);
         listaAlunosParaAdd = new ArrayList<>();
+
+        listaAlunosComponents = new ArrayList<>();
 
         lnAlunos.setBackgroundColor(Color.TRANSPARENT);
 
@@ -288,6 +292,7 @@ public class CadastroTurmaActivity extends AppCompatActivity {
 
         // Add linha pro layout
         lnAlunos.addView(linha);
+        listaAlunosComponents.add(linha);
     }
 
 
@@ -349,7 +354,7 @@ public class CadastroTurmaActivity extends AppCompatActivity {
 
         int idProfessor = Integer.parseInt(Util.splitString(atProfessor.getText().toString(), 0, " - "));
         Professor professor = ProfessorDAO.getProfessor(idProfessor);
-        turma.setProfessor(professor);
+        turma.setIdProfessor(professor.getId());
 
         // Lista de alunos de forma CANSADA kkkkk
         StringBuilder listaAlunos = new StringBuilder();
@@ -358,16 +363,42 @@ public class CadastroTurmaActivity extends AppCompatActivity {
             if (id > 0) {
                 listaAlunos.append(",");
             }
+
             listaAlunos.append(aluno.getId());
-            aluno.setTurma(turma);
         });
+
         turma.setAlunos(listaAlunos.toString());
 
         if (TurmaDAO.salvar(turma) > 0) {
+            // Adicionar o id da turma pra cada aluno
+            String[] idsAlunos = turma.getAlunos().split(",");
+
+            // Se houver apenas um aluno, salva ele
+            if (idsAlunos.length == 1) {
+                Aluno unicoAluno = AlunoDAO.getAluno(Integer.parseInt(turma.getAlunos()));
+                unicoAluno.setIdTurma(turma.getId());
+                if (AlunoDAO.salvar(unicoAluno) > 0) {
+                    Log.e("salvarTurma()", unicoAluno.getNome()+" salvo na turma "+unicoAluno.getIdTurma()+"!");
+                } else {
+                    Log.e("salvarTurma()", "erro ao salvar aluno!");
+                }
+            } else {
+                for (String idsAluno : idsAlunos) {
+                    int id = Integer.parseInt(idsAluno);
+                    Aluno aluno = AlunoDAO.getAluno(id);
+                    aluno.setIdTurma(turma.getId());
+                    if (AlunoDAO.salvar(aluno) > 0) {
+                        Log.e("salvarTurma()", aluno.getNome()+" salvo na turma "+aluno.getIdTurma()+"!");
+                    } else {
+                        Log.e("salvarTurma()", "erro ao salvar aluno!");
+                    }
+                }
+            }
+
             setResult(RESULT_OK);
             finish();
         } else
-            Util.customSnackBar(lnPrincipal, "Erro ao salvar a turma (" + turma.getApelido() + ") " + " verifique o log", 0);
+            Util.customSnackBar(lnPrincipal, "Erro ao salvar a turma (" + turma.getId() + ") " + " verifique o log", 0);
     }
 
     @Override
@@ -395,7 +426,12 @@ public class CadastroTurmaActivity extends AppCompatActivity {
         spRegime.setSelection(0);
         spCursos.setSelection(0);
         spPeriodo.setSelection(0);
-        atProfessor.clearListSelection();
-        atAlunos.clearListSelection();
+        atProfessor.setText("");
+        atAlunos.setText("");
+        listaAlunosParaAdd.clear();
+
+        listaAlunosComponents.forEach(component-> {
+            lnAlunos.removeView(component);
+        });
     }
 }

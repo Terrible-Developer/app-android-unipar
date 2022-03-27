@@ -1,28 +1,30 @@
 package com.example.cadastroalunos.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.cadastroalunos.R;
-import com.example.cadastroalunos.activities.NotasAlunoActivity;
+import com.example.cadastroalunos.activities.SituacaoAlunoActivity;
+import com.example.cadastroalunos.activities.cadastros.CadastroFrequenciaActivity;
 import com.example.cadastroalunos.activities.cadastros.CadastroNotaActivity;
-import com.example.cadastroalunos.activities.lista.ListaTurmaActivity;
 import com.example.cadastroalunos.dao.AlunoDAO;
+import com.example.cadastroalunos.dao.ProfessorDAO;
+import com.example.cadastroalunos.dao.TurmaDAO;
 import com.example.cadastroalunos.model.Aluno;
+import com.example.cadastroalunos.model.Professor;
 import com.example.cadastroalunos.model.Turma;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.util.Arrays;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -77,7 +79,10 @@ public class TurmaAdapter extends RecyclerView.Adapter<TurmaAdapter.TurmaViewHol
         Turma turma = listaTurmas.get(position);
 
         holder.edTurmaID.setText(String.valueOf(turma.getId()));
-        holder.edTurmaProfessor.setText(String.valueOf(turma.getProfessor().getNome()));
+
+        Professor professor = ProfessorDAO.getProfessor(turma.getIdProfessor());
+
+        holder.edTurmaProfessor.setText(String.valueOf(professor.getNome()));
         holder.edTurmaRegime.setText(String.valueOf(turma.getRegime()));
         holder.edTurmaCurso.setText(String.valueOf(turma.getCurso()));
         holder.edTurmaPeriodo.setText(String.valueOf(turma.getPeriodo()));
@@ -143,17 +148,25 @@ public class TurmaAdapter extends RecyclerView.Adapter<TurmaAdapter.TurmaViewHol
                 LinearLayout.LayoutParams nomeParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 nomeParams.weight = 1;
                 nome.setLayoutParams(nomeParams);
-                nome.setText(aluno.getId()+" - "+aluno.getNome());
+                nome.setText(aluno.getRa()+" - "+aluno.getNome());
                 nome.setTextColor(Color.BLACK);
                 line.addView(nome);
 
                 // Add evento de visualizar notas do aluno
                 nome.setOnClickListener(view -> {
-                    Log.e("sas", "aluno:"+aluno.getNome());
+                    Log.e("sas", "aluno:"+aluno);
 
                     // Abrir tela de cadastro da nota do aluno
-                    Intent intent = new Intent(context, NotasAlunoActivity.class);
+                    Intent intent = new Intent(context, SituacaoAlunoActivity.class);
                     intent.putExtra("alunoID", ""+aluno.getId());
+                    intent.putExtra("turmaID", ""+aluno.getIdTurma());
+                    Turma turm = TurmaDAO.getTurma(aluno.getIdTurma());
+                    if (turm != null) {
+                        Professor prof = ProfessorDAO.getProfessor(turm.getIdProfessor());
+                        if (prof != null) {
+                            intent.putExtra("disciplina", "" + prof.getDisciplina());
+                        }
+                    }
                     context.startActivity(intent);
                 });
 
@@ -168,13 +181,44 @@ public class TurmaAdapter extends RecyclerView.Adapter<TurmaAdapter.TurmaViewHol
                 cadastrarNota.setMinimumWidth(16);
                 line.addView(cadastrarNota);
 
-                // Adiciona evento ao clicar ao ImageView cadastrarNota
+                // Botão de cadastrar frequencia
+                ImageView cadastrarFrequencia = new ImageView(context);
+                LinearLayout.LayoutParams cadastrarFrequenciaParams = new LinearLayout.LayoutParams(60, 50);
+                cadastrarNotaParams.setMargins(0, 0, 0, 0);
+                cadastrarFrequencia.setLayoutParams(cadastrarFrequenciaParams);
+                cadastrarFrequencia.setPadding(0, 0, 0, 0);
+                cadastrarFrequencia.setClickable(true);
+                cadastrarFrequencia.setImageResource(R.drawable.attend);
+                cadastrarFrequencia.setMinimumWidth(20);
+                line.addView(cadastrarFrequencia);
+
+                // Adiciona evento ao clicar ao ImageView cadastrar nota
                 cadastrarNota.setOnClickListener(view -> {
-                    Log.e("sas", "aluno:"+aluno.getNome());
+                    Log.e("sas", "aluno:"+aluno);
 
                     // Abrir tela de cadastro da nota do aluno
                     Intent intent = new Intent(context, CadastroNotaActivity.class);
                     intent.putExtra("alunoID", ""+aluno.getId());
+                    intent.putExtra("turmaID", ""+aluno.getIdTurma());
+                    context.startActivity(intent);
+                });
+
+                // Adiciona evento ao clicar ao ImageView cadastrar frequencia
+                cadastrarFrequencia.setOnClickListener(view -> {
+                    Log.e("sas", "aluno:"+aluno);
+
+                    // Abrir tela de cadastro da nota do aluno
+                    Intent intent = new Intent(context, CadastroFrequenciaActivity.class);
+                    intent.putExtra("alunoID", ""+aluno.getId());
+                    intent.putExtra("turmaID", ""+aluno.getIdTurma());
+                    Turma turmaObj = TurmaDAO.getTurma(aluno.getIdTurma());
+                    if (turmaObj != null) {
+                        Professor professorObj = ProfessorDAO.getProfessor(turmaObj.getIdProfessor());
+                        if (professorObj != null) {
+                            intent.putExtra("disciplina", ""+professorObj.getDisciplina());
+                        }
+                    }
+
                     context.startActivity(intent);
                 });
 

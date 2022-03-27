@@ -8,6 +8,7 @@ import fr.ganfra.materialspinner.MaterialSpinner;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,6 +24,7 @@ import com.example.cadastroalunos.dao.DisciplinaDAO;
 import com.example.cadastroalunos.model.Aluno;
 import com.example.cadastroalunos.model.Disciplina;
 import com.example.cadastroalunos.util.CpfMask;
+import com.example.cadastroalunos.util.InputFilterMinMax;
 import com.example.cadastroalunos.util.Util;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -31,6 +33,7 @@ import java.util.Calendar;
 public class CadastroDisciplinaActivity extends AppCompatActivity {
 
     private TextInputEditText edDisciplinaNome;
+    private TextInputEditText edTotalAulas;
 
     private LinearLayout lnPrincipal;
 
@@ -40,8 +43,11 @@ public class CadastroDisciplinaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cadastro_disciplina);
 
         edDisciplinaNome = findViewById(R.id.edDisciplinaNome);
+        edTotalAulas = findViewById(R.id.edTotalAulas);
 
         lnPrincipal = findViewById(R.id.lnPrincipal);
+
+        edTotalAulas.setFilters(new InputFilter[]{new InputFilterMinMax(0, 20)});
     }
 
 
@@ -54,6 +60,12 @@ public class CadastroDisciplinaActivity extends AppCompatActivity {
             return;
         }
 
+        if(edTotalAulas.getText().equals("")){
+            edTotalAulas.setError("Informe o total de aulas previsto da Disciplina!");
+            edTotalAulas.requestFocus();
+            return;
+        }
+
         salvarDisciplina();
     }
 
@@ -61,6 +73,7 @@ public class CadastroDisciplinaActivity extends AppCompatActivity {
         Disciplina disciplina = new Disciplina();
 
         disciplina.setNome(edDisciplinaNome.getText().toString());
+        disciplina.setTotalAulas(Integer.parseInt(edTotalAulas.getText().toString()));
 
         if(DisciplinaDAO.salvar(disciplina) > 0) {
             setResult(RESULT_OK);

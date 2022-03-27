@@ -33,6 +33,20 @@ public class DisciplinaDAO {
         }
     }
 
+    public static Disciplina getDisciplinaByName(String name){
+        List<Disciplina> list = new ArrayList<>();
+        try{
+            list = Disciplina.find(Disciplina.class, "", new String[]{}, "", "", "");
+
+            Optional<Disciplina> optDisciplina = list.stream().filter(d -> d.getNome().equalsIgnoreCase(name)).findFirst();
+
+            return optDisciplina.get();
+        }catch (Exception ex){
+            Log.e("Erro", "Erro ao retornar o disciplina: "+ex.getMessage());
+            return null;
+        }
+    }
+
 
     public static List<Disciplina> retornaDisciplinas(String where, String[]whereArgs, String orderBy){
         List<Disciplina> list = new ArrayList<>();
